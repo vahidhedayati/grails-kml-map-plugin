@@ -63,5 +63,5 @@ This means you can now edit each of the generated files for a given community an
 
 Upon start up you will need to visit the doost map regions and it will show what has been produced.
 
-![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-kml-plugin/master/documentation/map-region-editor.png)
-![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-kml-plugin/master/documentation/map-region-editor-edit.png)
+![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-kml-map-plugin/master/documentation/map-region-editor.png)
+![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-kml-map-plugin/master/documentation/map-region-editor-edit.png)
