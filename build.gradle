@@ -59,6 +59,17 @@ dependencies {
 
     //This deal with writing/reading KML files
     compile group: 'de.micromata.jak', name: 'JavaAPIforKml', version: '2.2.0'
+
+    //HTTPBuilder
+    compile ('org.codehaus.groovy.modules.http-builder:http-builder:0.6') {
+        exclude module: 'xalan'
+        //exclude module:  'xml-apis'
+        exclude module: 'groovy'
+    }
+
+    //Commons io
+    compile group: 'commons-io', name: 'commons-io', version: '2.4'
+
 }
 
 bootRun {
