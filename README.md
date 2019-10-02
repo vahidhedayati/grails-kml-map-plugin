@@ -65,3 +65,13 @@ Upon start up you will need to visit the doost map regions and it will show what
 
 ![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-kml-map-plugin/master/documentation/map-region-editor.png)
 ![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-kml-map-plugin/master/documentation/map-region-editor-edit.png)
+![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-kml-map-plugin/master/documentation/map-region-editor-edit1.png)
+![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-kml-map-plugin/master/documentation/map-region-editor-edit2.png)
+![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-kml-map-plugin/master/documentation/map-region-editor-edit3.png)
+![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-kml-map-plugin/master/documentation/map-region-editor-edit4.png)
+![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-kml-map-plugin/master/documentation/map-region-editor-edit5.png)
+![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-kml-map-plugin/master/documentation/map-region-editor-edit6.png)
+![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-kml-map-plugin/master/documentation/map-region-editor-edit7.png)
+![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-kml-map-plugin/master/documentation/map-region-editor-edit8.png)
+![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-kml-map-plugin/master/documentation/map-region-editor-edit9.png)
+
