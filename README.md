@@ -16,14 +16,23 @@ Its a lot of work I need to strip out and put together, will keep me busy in the
 
 Notes
 ----
-
+PLEASE NOTE THESE ARE SCRIBBLES - NOTHING IS WORKING AS YET 
+----
 
 There is already an existing location which holds the GEO location IP lookup map. 
 This location has now been extends to cover KML aspects of the site.
 
 Under:
 
-/opt/site_content/_map/KML/
+
+1.  `/opt/site_kmlplugin/_map/` -> https://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
+Override `config.kmplugin.geoMap` or put file into
+Place this under `/opt/site_kmlplugin/_map/GeoLiteCity.dat`
+
+
+
+
+2. `/opt/site_kmlplugin/_map/KML/` ->
 
 Place a file for the given country. This will be KML file you get hold of that contains typically all the official boroughs/councils of a given country in the case of UK we found:
 
@@ -34,13 +43,13 @@ This file was then stored in this folder as
 _default.kml
 
 
-/opt/site_content/_map/KML/_default.kml
+/opt/site_kmlplugin/_map/KML/_default.kml
 
 
 When the site starts up for the very first time, it will attempt to read through this file and inside the same folder it will expand out all the found boroughs.
 
 ```bash
-$ ls -rtml /opt/site_content/_map/KML/|more
+$ ls -rtml /opt/site_kmlplugin/_map/KML/|more
 total 9876
 -rw-rw-r-- 1 mx1 mx1 7394653 Nov 29 17:08 _default.kml
 -rw-rw-r-- 1 mx1 mx1   19199 Dec  1 19:36 BEDFORDSHIRE.kml

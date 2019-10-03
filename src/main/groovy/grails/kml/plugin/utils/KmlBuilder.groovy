@@ -1,6 +1,8 @@
 package grails.kml.plugin.utils
 
 import de.micromata.opengis.kml.v_2_2_0.*
+import grails.kml.plugin.utils.beans.KmlArea
+import grails.kml.plugin.utils.beans.KmlUser
 
 /**
  *
@@ -31,9 +33,9 @@ public class KmlBuilder {
         m_refToCoordMap = new HashMap<String, GeoCoordinates>()
     }
 
-    public void placeIndividual(String  friendlyHouseHoldAndCommunityName) {
+    public void placeIndividual(KmlUser indi, friendlyName) {
         GeoCoordinates gmp = getCoordinates(indi)
-        addPlacemarkWithLabel(gmp, indi.friendlyHouseHoldAndCommunityName)
+        addPlacemarkWithLabel(gmp, friendlyName)
     }
 
 
@@ -62,7 +64,69 @@ public class KmlBuilder {
                 .addToCoordinates(coords1.toString())
     }
 
+    public  void linkCommunity(KmlUser user) {
+        if (user.area) {
+            linkCommunity(user.area)
+        }
 
+    }
+
+    public  void linkCommunity(KmlArea area) {
+
+        GeoCoordinates communityRecord = getCoordinates(area)
+        area?.members?.each{ KmlUser s ->
+            GeoCoordinates communityMemberRecord = getCoordinates(s)
+            if (communityMemberRecord.longitude && communityRecord.longitude && !addedUsers.contains(s.id)) {
+                addedUsers<<s.id
+                linkPlacemarks("<a href='/area/show/${institution.id}' target='${institution?.name}'><i class='fa fa-institution'></i>  "+area.name+'</a>'+s.friendlyName, communityMemberRecord, communityRecord)
+                addPlacemarkWithLabel(communityMemberRecord, s.friendlyName)
+            }
+        }
+
+    }
+
+
+    public  void linkFamilies(Set<KmlUser> families) {
+        families?.each { KmlUser u ->
+
+
+            u.siblings?.each { KmlUser s ->
+                GeoCoordinates brecord = getCoordinates( s)
+                        GeoCoordinates childRecord = getCoordinates(s)
+                        if (childRecord.longitude && childRecord.longitude) {
+                            addedUsers<<s.id
+                            linkPlacemarks("<a href='/profile/?profileUser.id=${s.id}' target='${s.friendlyName}'><i class='fa fa-user'></i> "+u.friendlyName+'</a> ~ '+s.friendlyName, childRecord, brecord)
+                            addPlacemarkWithLabel(childRecord, s.friendlyName)
+                        }
+                    }
+
+
+
+            GeoCoordinates userRecord = getCoordinates(u)
+            if (!addedUsers.contains(u.id)) {
+                addedUsers<<u.id
+
+                addPlacemarkWithLabel(userRecord, u.friendlyName)
+            }
+
+            if (u.father) {
+                GeoCoordinates fatherRecord = getCoordinates(u.father)
+                if (fatherRecord.longitude && userRecord.longitude && !addedUsers.contains(u.father.id)) {
+                    addedUsers<<u.father.id
+                    linkPlacemarks("<a href='/profile/?profileUser.id=${u.father.id}' target='${u.father.username}'><i class='fa fa-user'></i> "+u.father.friendlyName+'</a> ~ '+u.friendlyName,fatherRecord, userRecord)
+                    addPlacemarkWithLabel(fatherRecord, u.father.friendlyName)
+                }
+            }
+            if (u.mother) {
+                GeoCoordinates motherRecord = getCoordinates(u.mother)
+                if (motherRecord.longitude && userRecord.longitude&& !addedUsers.contains(u.mother.id)) {
+                    addedUsers<<u.mother.id
+                    linkPlacemarks("<a href='/profile/?profileUser.id=${u.mother.id}' target='${u.mother.username}'><i class='fa fa-user'></i> "+u.mother.friendlyName+'</a> ~ '+u.friendlyName,motherRecord, userRecord)
+                    addPlacemarkWithLabel(motherRecord, u.mother.friendlyName)
+                }
+            }
+        }
+    }
     private  GeoCoordinates getCoordinates(KmlUser u) {
         GeoCoordinates gmp = new GeoCoordinates()
         gmp.name = u.friendlyName

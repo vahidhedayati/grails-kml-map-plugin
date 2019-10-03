@@ -15,4 +15,6 @@ class GrailsKmlPlugin extends Plugin {
     def developers = [name: 'Vahid Hedayati', email: 'badvad@gmail.com']
     def issueManagement = [system: 'GITHUB', url: 'https://github.com/vahidhedayati/grails-kml-map-plugin/issues']
     def scm = [url: 'https://github.com/vahidhedayati/grails-kml-map-plugin']
+
+
 }

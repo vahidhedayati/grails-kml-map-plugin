@@ -1,6 +1,7 @@
 package grails.kml.plugin.utils
 
 import de.micromata.opengis.kml.v_2_2_0.*
+import grails.kml.plugin.utils.beans.KmlUser
 import grails.util.Holders
 import groovy.util.logging.Slf4j
 import org.apache.commons.io.IOUtils
@@ -149,7 +150,7 @@ class KmlHelper {
         }
     }
 
-    public static void uploadFile(MultipartFile file,  KmlUser updateUser,String communityName=null) {
+    public static void uploadFile(MultipartFile file, KmlUser updateUser, String communityName=null) {
 
             File file1 = new File(ROOT_PATH+(communityName?communityName.toUpperCase():file.name.toUpperCase())+".kml")
             if (file1.exists()) {

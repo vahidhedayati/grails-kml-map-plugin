@@ -1,11 +1,20 @@
-package grails.kml.plugin.utils
+package grails.kml.plugin.utils.beans
 
-class KmlUser {
+import grails.validation.Validateable
+
+class KmlUser implements Validateable {
 
     Long id
     String username
     String firstName
     String lastName
+
+    KmlArea area
+
+
+    List<KmlUser> siblings=[]
+    KmlUser father
+    KmlUser mother
 
     String getFriendlyName() {
         return firstName+' '+lastName
