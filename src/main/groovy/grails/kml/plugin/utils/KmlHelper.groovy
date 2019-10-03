@@ -1,6 +1,7 @@
 package grails.kml.plugin.utils
 
 import de.micromata.opengis.kml.v_2_2_0.*
+import grails.kml.plugin.utils.beans.AreaBoundaryBean
 import grails.kml.plugin.utils.beans.KmlUser
 import grails.util.Holders
 import groovy.util.logging.Slf4j
@@ -174,6 +175,51 @@ class KmlHelper {
         Kml kml = Kml.unmarshal(targetStream)
         if (kml) {
             parseFeature(kml.feature,true,false,communityName)
+        }
+    }
+
+    public static void  writeBoundary(AreaBoundaryBean bean) {
+        if (!bean.coords) {
+            deleteFile(bean.name, 'admin')
+        } else {
+            Kml kml = KmlFactory.createKml();
+            def placeMarkPoint =kml.createAndSetPlacemark()
+                    .withName(bean.name)
+                    .withVisibility(true)
+                    .withOpen(false)
+                    .withDescription(bean.name)
+                    .withStyleUrl("styles.kml#jugh_style")
+                    .createAndSetPoint()
+
+            placeMarkPoint.withExtrude(false)
+            placeMarkPoint.withAltitudeMode(AltitudeMode.CLAMP_TO_GROUND)
+            bean.coords?.each { t->
+                placeMarkPoint.addToCoordinates(t.longitude,t.latitude,0)
+            }
+
+            File file1 = new File(ROOT_PATH+bean.name.toUpperCase()+".kml")
+            if (file1.exists()) {
+                log.info "deleting ${file1.name}"
+                Helper.copyDeleteFile(file1,KML_HISTORY, bean.name,'admin')
+            }
+
+            List results=[]
+            bean.coords?.each {
+                results<<[latitude:it.latitude,longitude:it.longitude]
+            }
+            GeoMapListener.createUpdate(bean.name,results)
+            log.info "Creating ${file1.name}"
+            kml.marshal(file1)
+
+            if (bean.oldName && bean.oldName!=bean.name) {
+                File file2 = new File(ROOT_PATH+bean.oldName.toUpperCase()+".kml")
+                if (file2) {
+                    log.info "deleting ${file1.name}"
+                    Helper.copyDeleteFile(file2,KML_HISTORY, bean.name,'admin')
+                }
+                GeoMapListener.removeMark(bean.oldName)
+            }
+
         }
     }
 

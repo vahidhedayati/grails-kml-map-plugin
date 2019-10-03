@@ -1,6 +1,7 @@
 package grails.kml.plugin.utils
 
 import de.micromata.opengis.kml.v_2_2_0.*
+import grails.kml.plugin.Area
 import grails.kml.plugin.utils.beans.KmlArea
 import grails.kml.plugin.utils.beans.KmlUser
 
@@ -71,7 +72,7 @@ public class KmlBuilder {
 
     }
 
-    public  void linkCommunity(KmlArea area) {
+    public  void linkCommunity(Area area) {
 
         GeoCoordinates communityRecord = getCoordinates(area)
         area?.members?.each{ KmlUser s ->
