@@ -103,7 +103,7 @@ class AreaService implements GrailsApplicationAware {
         }
 
         void setGrailsApplication(GrailsApplication ga) {
-            config = ga.config.doost
+            config = ga.config.kmlplugin
         }
     }
 

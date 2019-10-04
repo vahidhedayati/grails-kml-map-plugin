@@ -70,7 +70,7 @@ Once it has been generated. The site will from there on refer to all created fil
 
 This means you can now edit each of the generated files for a given community and resave it – a saved version and application restart will then ensure the site is using whatever latest content each community has.
 
-Upon start up you will need to visit the doost map regions and it will show what has been produced.
+Upon start up you will need to visit the  map regions and it will show what has been produced.
 
 ![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-kml-map-plugin/master/documentation/map-region-editor.png)
 ![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-kml-map-plugin/master/documentation/map-region-editor-edit.png)
