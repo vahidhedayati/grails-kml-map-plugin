@@ -10,6 +10,19 @@ import grails.kml.plugin.utils.beans.KmlArea
 class MapController {
 
 
+    def index() {
+        AreaBoundaryBean bean = new AreaBoundaryBean()
+        bindData(bean,params)
+        bean.formatBean()
+        def currentEntry
+        if (bean.name) {
+            currentEntry=GeoMapListener.PLACEMARKS.get(bean.name)
+        } else {
+            currentEntry=GeoMapListener.PLACEMARKS.find().value
+        }
+
+        render view:'index', model:[currentEntry:currentEntry, instance:bean]
+    }
     def upload() {
 
     }
@@ -64,25 +77,6 @@ class MapController {
         render status: response.SC_NOT_FOUND
     }
 
-
-    def fixMissingGeo() {
-        institutionService.fixMissingGeo()
-        flash.message="Missing Geo fixed where possible"
-        redirect(url:'/')
-    }
-    def index() {
-        AreaBoundaryBean bean = new AreaBoundaryBean()
-        bindData(bean,params)
-        bean.formatBean()
-        def currentEntry
-        if (bean.name) {
-            currentEntry=GeoMapListener.PLACEMARKS.get(bean.name)
-        } else {
-            currentEntry=GeoMapListener.PLACEMARKS.find().value
-        }
-
-        render view:'index', model:[currentEntry:currentEntry, instance:bean]
-    }
 
     def loadHistory() {
         if (params.name && params.original) {

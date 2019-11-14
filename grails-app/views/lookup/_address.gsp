@@ -2,10 +2,23 @@
 
 
 <div class="row">
-
-
     <div id="log"></div>
 
+    <div class="col-xs-4">
+        <div class='form-group'>
+            <label for="countrysearch"  class="maxWidth control-label">
+                <g:message code="country.label"/>
+            </label>
+
+            <g:field type="search" autocomplete="off"  name="countrysearch"
+                     class="form-control " required="true"
+                     value="${instance?.countrysearch}"/>
+            <g:hiddenField
+                    value="${instance?.countryCode}"
+                    name="countryCode"/>
+
+        </div>
+    </div>
 
     <div class="col-xs-4">
         <div class='form-group'>
@@ -14,9 +27,9 @@
                     <g:message code="postcode.label"/>
                 </label>
                 <g:field type="text"  class="form-control "
-                         id="postcode"
+
                          value="${instance?.postcode ?: ''}"
-                         required="true" 
+                         required="true"
                          name="postcode" />
             </span>
             <span id="postcodeError"></span>
@@ -31,7 +44,7 @@
         <div class='form-group'>
             <span class=" ${hasErrors(bean: instance, field: 'building', 'has-error')}">
                 <label for="building" ><g:message code="building.label"/></label>
-                <g:field name="building" class="form-control" id="building" 
+                <g:field name="building" class="form-control" id="building"
                          maxlength="100"
                          value="${instance?.building?:''}"  type="text"
                 />
@@ -42,7 +55,7 @@
         <div class='form-group'>
             <span class=" ${hasErrors(bean: instance, field: 'street', 'has-error')}">
                 <label for="street" ><g:message code="street.label"/></label>
-                <g:field name="street" id="street" class="form-control " 
+                <g:field name="street" id="street" class="form-control "
                          maxlength="100"  required="true"
                          value="${instance?.street?:''}"  type="text"
                 />
@@ -51,21 +64,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-xs-4">
-        <div class='form-group'>
-            <label for="countrysearch"  class="maxWidth control-label">
-                <g:message code="country.label"/>
-            </label>
 
-                <g:field type="search" autocomplete="off" id="countrysearch" name="countrysearch"
-                             class="form-control " required="true" 
-                             value="${instance?.countrysearch}"/>
-                <g:hiddenField id="countryCode"
-                               value="${instance?.countryCode}"
-                               name="countryCode"/>
-
-        </div>
-    </div>
 
     <div class="col-xs-4">
         <div class='form-group'>
@@ -93,14 +92,48 @@
                     <g:message code="state.label"/>
                 </div>
             </label>
-            <g:field type="text" 
+            <g:field type="text"
                      value="${instance?.state ?: ''}"
                      id="state"
                      class="form-control" name="state" />
 
         </div>
     </div>
+    <div class="col-xs-4">
+        <div class='form-group'>
+            <label for="communitySearch"  class="maxWidth control-label">
+                <g:message code="communitySearch.label"/>
+            </label>
+            <g:field type="text"  class="form-control "
+                     value="${instance?.communitySearch ?: ''}"
+                     name="communitySearch" />
 
+        </div>
+    </div>
+
+    <div class="col-xs-4">
+        <div class='form-group'>
+            <label for="latitude"  class="maxWidth control-label">
+                <g:message code="latitude.label"/>
+            </label>
+            <g:field type="text"  class="form-control "
+                     value="${instance?.latitude ?: ''}"
+                     name="latitude" />
+
+        </div>
+    </div>
+
+    <div class="col-xs-4">
+        <div class='form-group'>
+            <label for="longitude"  class="maxWidth control-label">
+                <g:message code="longitude.label"/>
+            </label>
+            <g:field type="text"  class="form-control "
+                     value="${instance?.longitude ?: ''}"
+                     name="longitude" />
+
+        </div>
+    </div>
 </div>
 
 
@@ -121,16 +154,29 @@
             $('#postcode').trigger('blur');
         }
 
-            function log( message ) {
-                $( "<div>" ).text( message ).prependTo( "#log" );
-                $( "#log" ).scrollTop( 0 );
-            }
+        function log( message ) {
+            $( "<div>" ).text( message ).prependTo( "#log" );
+            $( "#log" ).scrollTop( 0 );
+        }
         $( "#countrysearch" ).autocomplete({
             source: '${g.createLink(controller: 'lookup', action: 'searchCountry')}',
+            minLength: 3,
+            select: function( event, ui ) {
+
+                $('#countryCode').val(ui.item.label)
+
+
+            },
+            open: function() {
+                //     $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+            },
+            close: function() {
+                //   $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+            }
         })
 
         $( "#country33search" ).autocomplete({
-            /*source: function( request, response ) {
+            source: function( request, response ) {
                 $.ajax({
                     url: '${g.createLink(controller: 'lookup', action: 'searchCountry')}',
                     dataType: "json",
@@ -143,20 +189,22 @@
                     }
                 });
             },
-            */
-            source: '${g.createLink(controller: 'lookup', action: 'searchCountry')}',
+
+            // source: '${g.createLink(controller: 'lookup', action: 'searchCountry')}',
             minLength: 3,
-                select: function( event, ui ) {
+            select: function( event, ui ) {
+                console.log('-- '+ui.item.label)
+                $('#countryCode').val(ui.item.label)
 
                 log( ui.item ?
                     "Selected: " + ui.item.label :
                     "Nothing selected, input was " + this.value);
             },
             open: function() {
-           //     $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+                //     $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
             },
             close: function() {
-             //   $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+                //   $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
             }
         });
 
@@ -179,29 +227,19 @@
                     if (data.streetName) {
                         $('#street').val(data.streetName);
                     }
-
-                        $('#city').val(data.city ? data.city : data.county);
-
+                    $('#city').val(data.city ? data.city : data.county);
                     //$('#postcode').val(data.zip);
                     //$('#countryCode').val(data.countryCode);
                     //$('#countrysearch').val(data.countryName);
                     if (data.state){
                         $('#state').val(data.state);
                     }
+                    $('#communitySearch').val( data.comunityName);
+                    $('#longitude').val( data.lng);
+                    $('#latitude').val( data.lat);
+                    //$('#log').html(JSON.stringify(data))
 
-                    if (data.communityId) {
-                        //$('#commId').val(data.communityId);
-                        //$('#communitySearch').val(data.communitySearch);
-                        $('#communitySearch').addClass('btn btn-danger').effect( "shake", {  times: 40, distance: 10}, 200);
-                        setTimeout(function() { $('#communitySearch').removeClass('btn btn-danger'); },200);
-                        $('#communitySearch').autocomplete('search', data.communitySearch);
 
-                        // $('#communitySearch').data('uiAutocomplete')._trigger('select');
-                        //var ui={"item" :{"label":data.communitySearch, "id": data.communityId,"code":"null"}}
-
-                        //$('#communitySearch').data('ui-autocomplete')._trigger('select', 'autocompleteselect',ui);
-                    }
-                 
                 },
                 error: function (xhr, textStatus, error) {
                     $('#street').val('');

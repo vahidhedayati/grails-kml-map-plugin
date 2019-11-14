@@ -5,6 +5,7 @@ import grails.core.support.GrailsApplicationAware
 import grails.gorm.transactions.Transactional
 import grails.kml.plugin.Area
 import grails.kml.plugin.utils.CalcLatLong
+import grails.kml.plugin.utils.GeoMapListener
 
 class AreaService implements GrailsApplicationAware {
 
@@ -59,6 +60,15 @@ class AreaService implements GrailsApplicationAware {
             return areaList
         }
 
+    def bindBoundary() {
+
+        List validEntries=[]
+        GeoMapListener.PLACEMARKS?.sort{it.key}?.each {
+            validEntries << [name:it.key, label:it.key]
+        }
+
+        return [validEntries:validEntries]
+    }
 
         Map bindPostCode(Double longitude,Double latitude,int distance=0,String measureTypes='MILES') {
             CalcLatLong cl = new CalcLatLong()

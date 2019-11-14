@@ -3,6 +3,8 @@
 <html>
 <head>
     <meta name="layout" content="main" />
+    <asset:stylesheet href="jquery-ui.min.css" />
+    <asset:javascript src="jquery-ui.min.js" />
     <g:set var="entityName" value="${message(code: 'map.label')}" scope="request" />
     <title><g:message code="list.label" args="[entityName]" /></title>
 </head>
@@ -35,7 +37,7 @@
                 <g:if test="${instance.foundArea && !instance.foundArea?.longitude}">
                    <span id="noGeo" class="btn btn-danger btn-xs"><g:message code="noGeo.label"/></span>
                 </g:if>
-                <g:if test="${instance.communities}">
+                <g:if test="${instance.areas}">
                     <span id="localComms" onclick="toggleBlock('#listLocal');" class="btn btn-info btn-xs"><g:message code="localCommunities.label"/></span>
                 </g:if>
                 <g:if test="${instance.foundArea}">
@@ -96,17 +98,12 @@
             <tr style="display: none;" id="listAvailable">
                <td colspan="6">
                    <g:each in="${grails.kml.plugin.utils.GeoMapListener.PLACEMARKS?.sort{it.key}}" var="p">
-                       <span class="maP${p?.value?.community?.id}  btn btn-xs btn-${p.value.community?'default':'danger'}">
-                           ${p.key}
-                           <g:if test="${p?.value?.community}">
-                           (${p?.value?.community?.name})
-                           </g:if>
-
+                    ${p}
 
                        <span  class="dropdown maxZindex">
                            <button  class="btn btn-default9 btn-danger2 btn-xs dropdown-toggle actionButton"
                                     data-name="${p.key}"
-                                    data-id="${p?.value?.community?.id}"
+
                                     type="button"  data-toggle="dropdown"><i class="fa fa-user-md"></i><b class="caret"></b></button>
 
                        </span>
@@ -114,20 +111,18 @@
                    </g:each>
                </td>
             </tr>
-            <g:if test="${instance.communities}">
+            <g:if test="${instance.areas}">
                 <tr id="listLocal"  style="display: none;">
                     <td colspan="6">
-                    <g:each in="${instance.communities}" var="p">
-                        <span class=" btn btn-xs btn-${p.community?'default':'danger'}" >
+                    <g:each in="${instance.areas}" var="p">
+                        <span class=" btn btn-xs btn-${p?'default':'danger'}" >
                             ${p.name}
-                            <g:if test="${p?.community}">
-                                (${p?.community?.name})
-                            </g:if>
+
 
 
                             <span  class="dropdown maxZindex">
                                 <button  class="btn btn-default9 btn-danger2 btn-xs dropdown-toggle actionButton"
-                                         data-id="${p?.community?.id}" data-name="${p.name}"
+                                         data-name="${p.name}"
                                          type="button"  data-toggle="dropdown"><i class="fa fa-user-md"></i><b class="caret"></b></button>
 
                             </span>
@@ -164,6 +159,7 @@
         <ul class="navigation">
         </ul>
         <div class="col-sm-12" id="communityMap" style="height: 40em;">
+            @COMMUNITM
         </div>
         <ul class="navigation">
         </ul>
@@ -2962,7 +2958,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: "${g.createLink(controller: 'map',action:'communityGeo')}/"+name,
+                url: "${g.createLink(controller: 'map',action:'index')}?name="+name,
                 data: $('#search').serialize(),
                 success: function(data){
                     tinyMarker = new google.maps.Marker({
@@ -3104,7 +3100,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: "${g.createLink(controller: 'map',action:'communityGeo')}/"+name,
+                url: "${g.createLink(controller: 'map',action:'index')}?name="+name,
                 data: $('#search').serialize(),
                 success: function(data,textStatus){
                     tinyMarker = new google.maps.Marker({

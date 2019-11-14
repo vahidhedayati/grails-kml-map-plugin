@@ -33,11 +33,13 @@ class AreaBoundaryBean implements Validateable{
 
     def formatBean() {
         if (name) {
-            foundArea=Area.executeQuery("from Area where upper(name)=:name",[name:name.toUpperCase()])[0]
+            /*  foundArea=Area.executeQuery("from Area where upper(name)=:name",[name:name.toUpperCase()])[0]
             if (foundArea) {
                 Double longi= foundArea.longitude?.doubleValue()
                 Double lat=foundArea.latitude?.doubleValue()
-                def actualAreas=Holders.grailsApplication.mainContext.areaService.getArea(longi, lat,90,'MILES', foundArea.id as Long)?.
+                println "yes ${lat}"
+
+              def actualAreas=Holders.grailsApplication.mainContext.areaService.getArea(longi, lat,90,'MILES', foundArea.id as Long)?.
                         sort{it.distance}?.take(Holders.grailsApplication.config.kmlplugin?.MAX_AREAS?:30)?.collect()
                 if (actualAreas) {
                     def ids=actualAreas.id
@@ -48,7 +50,9 @@ class AreaBoundaryBean implements Validateable{
                     }
                 }
 
-            }
+
+
+            }*/
         }
 
         if (coordinations) {

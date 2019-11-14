@@ -1,4 +1,4 @@
-<script src="http://maps.googleapis.com/maps/api/js?sensor=false"  type="text/javascript"></script>
+<script src="http://maps.googleapis.com/maps/api/js?key=${grailsApplication.config.kmlplugin.GOOGLE_API_KEY}"  type="text/javascript"></script>
 <script>
     var target = document.head;
     var observer = new MutationObserver(function(mutations) {
