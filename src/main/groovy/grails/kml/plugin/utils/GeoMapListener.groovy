@@ -64,11 +64,15 @@ class GeoMapListener {
     }
 
     public static void update(String name, List results) {
-        def r = PLACEMARKS.get(name)
-        if (!r) {
-            GeoPlaceMarks marks = new GeoPlaceMarks(name,results)
-            PLACEMARKS.put(name, marks)
+        println "working on $name"
+        if (name != 'TOBESET') {
+            def r = PLACEMARKS.get(name)
+            if (!r) {
+                GeoPlaceMarks marks = new GeoPlaceMarks(name,results)
+                PLACEMARKS.put(name, marks)
+            }
         }
+
     }
     public static void createUpdate(String name, List results) {
         def r = PLACEMARKS.get(name)

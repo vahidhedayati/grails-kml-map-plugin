@@ -128,9 +128,10 @@ class GeoHelper {
     static Map decodeLatLong(Double lat, Double lng,String postcode, boolean withKey=true) {
         def http = new HTTPBuilder('https://maps.googleapis.com/maps/api/geocode/')
         def lookup = [latlng:"$lat,$lng".toString(), sensor: false]
-        if (withKey) {
+        //if (withKey) {
             lookup.key=API_KEY
-        }
+        //}
+
         //println " $lookup"
         def resp = http.get(
                 path: 'json',
@@ -296,9 +297,9 @@ class GeoHelper {
               def  encCity = URLEncoder.encode(code)
             //}
             String url="/maps/api/geocode/json?components=country%3a${countryCode}%7Cpostal_code:${encCity}"//
-            if (withKey) {
+            //if (withKey) {
                 url+="&key="+API_KEY
-            }
+            //}
 
             String server="https://maps.googleapis.com"
 

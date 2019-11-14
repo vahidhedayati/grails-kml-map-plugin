@@ -6,7 +6,8 @@
 <title><g:message code="importType.label" args="${[g.message(code:'kml.label', args:[g.message(code:'area.label')])]}"/></title>
 </head>
 <body>
-<g:render template="/defaultNavBar" model="[create:true,list:true]"/>
+
+
 	<div class="nav" role="main">
 		<h4><g:message code="uploadKml.label"/></h4>
 		<g:uploadForm controller="map" action="uploadKml" enctype="multipart/form-data" acceptcharset="UTF-8" >
@@ -24,7 +25,7 @@
 		</g:uploadForm>
 	</div>
 	<div id="errors">
-		<g:render template="/errors" model="[bean:instance]" />
+
 	</div>
 	<script>
 		$(function() {

@@ -17,8 +17,8 @@ class KmlHelper {
     public static final long MAX_UPLOAD_SIZE=10*1024*1024
 
  //   public static Logger log = LoggerFactory.getLogger(getClass().name)
-    static String ROOT_PATH= Holders.grailsApplication.config.kmlplugin.KML_LOC ?:'/opt/content_kmlplugin/_map/KML/'
-    static String KML_HISTORY= Holders.grailsApplication.config.kmlplugin.KML_HISTORY?:'/opt/content_kmlplugin/_map/KML_HISTORY/'
+    static String ROOT_PATH= Holders.grailsApplication.config.kmlplugin.KML_LOC ?:'/opt/kmlplugin/_map/KML/'
+    static String KML_HISTORY= Holders.grailsApplication.config.kmlplugin.KML_HISTORY?:'/opt/kmlplugin/_map/KML_HISTORY/'
     static String DEFAULT_KML= Holders.grailsApplication.config.kmlplugin.KML_DEFAULT?:"_default.kml"
     static boolean KML_RESET_FROM_DEFAULT= Holders.grailsApplication.config.kmlplugin.KML_RESET_FROM_DEFAULT?:false
 
@@ -127,16 +127,21 @@ class KmlHelper {
         List results = parseGeometry(geometry)
         if (storeFile) {
             log.info "storing ${communityName?:placemark.name}"
-            writeKml(communityName?:placemark.name, results)
+            writeKml(communityName?communityName:placemark.name, results)
         }
         if (historyItem) {
-            GeoMapListener.updateHistory(communityName?:placemark.name, results)
+            GeoMapListener.updateHistory(communityName?communityName:placemark.name, results)
         } else {
-            log.info "Updating ${communityName?:placemark.name}"
+            log.info "Updating ${communityName?communityName:placemark.name}"
             if (communityName) {
                 GeoMapListener.createUpdate(communityName, results)
             } else {
-                GeoMapListener.update(placemark.name, results)
+
+                //println "working on ${placemark.name} ${placemark.getGeometry()} ${placemark.hashCode()}"
+                if (placemark && placemark.name) {
+                    GeoMapListener.update(placemark.name, results)
+                }
+
             }
 
         }

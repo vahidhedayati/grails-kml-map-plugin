@@ -1,4 +1,4 @@
-<%@ page import="grails.kml.plugin.utils.KmlHelper.GeoMapListener" %>
+<%@ page import="grails.kml.plugin.utils.GeoMapListener" %>
 <!doctype html>
 <html>
 <head>
@@ -25,10 +25,10 @@
     </div>
 
 
-    <g:render template="/errors" model="[bean:instance]" />
+
     <g:form action="saveBoundary">
         <label><g:message code="previous.label" args="${[instance.oldName]}"/></label><br/>
-        <label><g:message code="default.new.label" args="${[instance.name]}"/></label><br/>
+        <label><g:message code="new.label" args="${[instance.name]}"/></label><br/>
         <g:hiddenField name="oldName" value="${instance.oldName}"/>
         <g:hiddenField name="name" value="${instance.name}"/>
         <g:hiddenField name="coordinations" value="${instance.coordinations}"/>

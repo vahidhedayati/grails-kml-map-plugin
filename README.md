@@ -46,6 +46,18 @@ _default.kml
 /opt/site_kmlplugin/_map/KML/_default.kml
 
 
+Add this to BootStrap.groovy
+
+```
+ KmlHelper.parseKml()
+```
+
+```
+./gradlew wrapper --gradle-version 4.4.1
+ ./gradlew publishToMavenLocal
+```
+
+ 
 When the site starts up for the very first time, it will attempt to read through this file and inside the same folder it will expand out all the found boroughs.
 
 ```bash

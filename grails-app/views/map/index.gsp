@@ -1,4 +1,4 @@
-<%@ page import="grails.kml.plugin.utils.LoadMapTypes; grails.kml.plugin.utils..GeoMapListener" %>
+<%@ page import="grails.kml.plugin.utils.LoadMapTypes; grails.kml.plugin.utils.GeoMapListener" %>
 <!doctype html>
 <html>
 <head>
@@ -9,10 +9,9 @@
 <g:set var="tabIndex" value="${1}"/>
 <body>
 <g:render template="/googleMaps"/>
-<g:render template="/defaultNavBar" model="${[template:'/houseHold/menu']}"/>
+
 <div class="panel-body">
-    <g:render template="/errors" model="[bean:bean]" />
-    <g:render template="/errors" model="[bean:instance]" />
+
     <div class="label-outline2 label-warning">
         <div  class="h3">
             <div class="row">
