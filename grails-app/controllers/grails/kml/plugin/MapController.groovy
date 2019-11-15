@@ -146,9 +146,9 @@ class MapController {
         } catch (Throwable t) {
 
         }
-        if (!bean.foundCommunity) {
-            flash.message=message(code:'communityMissmatch.label')
-        }
+      //  if (!bean.foundArea) {
+          //  flash.message=message(code:'communityMissmatch.label')
+      //  }
         if (!bean.coordinations) {
             flash.message=message(code:'noCoordsDel.label')
         }

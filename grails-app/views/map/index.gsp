@@ -899,8 +899,23 @@
         $(document).ready(function(){
             loadmap();
 
-            $(function() {
-                $dropdown = $("#contextMenu");
+            function expand(item){
+                $('.table-responsive').css('padding-bottom', 155);
+            }
+            function shrink() {
+                $('.table-responsive').css({'padding-bottom': '', 'overflow': ''});
+            }
+            function changeRow(item) {
+                expand(item)
+                $('table.server-sort tr').removeClass('clicked').removeClass('successUpdate').removeClass('failUpdate');
+                item.parents('tr').addClass('clicked');
+            }
+            function resetRow(){
+                $('table.server-sort tr').removeClass('clicked').removeClass('bold').removeClass('successUpdate').removeClass('failUpdate');
+                shrink()
+            }
+
+            $dropdown = $("#contextMenu");
                 $(window).click(function() {
                     resetRow();
                 });
@@ -919,7 +934,7 @@
                     $(this).dropdown();
                     $('#delKml')[(id=='') ?'show':'hide']();
                 });
-            });
+
 
 
 

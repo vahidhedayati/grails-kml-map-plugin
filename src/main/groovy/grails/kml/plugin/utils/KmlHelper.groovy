@@ -86,15 +86,19 @@ class KmlHelper {
      */
     public static void parseFeature(Feature feature, boolean storeFile=false,boolean historyItem=false, String communityName=null) {
         if(feature) {
+            //println "- ${feature.getClass()} = feature"
             if(feature instanceof Document) {
                 feature?.feature?.each { documentFeature->
                     if(documentFeature instanceof Placemark) {
+                       // println "documentFeature working on placemark"
                         getPlacemark((Placemark) documentFeature,storeFile,historyItem,communityName)
                     } else if (documentFeature instanceof Folder) {
+                        //println "documentFeature working on folder"
                         getFeatureList(documentFeature.feature,storeFile,historyItem,communityName)
                     }
                 }
             } else if(feature instanceof Placemark) {
+               // println "feature working on placemark featurrre"
                 getPlacemark((Placemark) feature,storeFile,historyItem,communityName)
 
             }
@@ -125,6 +129,7 @@ class KmlHelper {
     public static void getPlacemark(Placemark placemark, boolean storeFile=false,boolean historyItem=false, String communityName=null) {
         Geometry geometry = placemark.getGeometry()
         List results = parseGeometry(geometry)
+        //println "- getPlacemark Placemark working on ${placemark.name}"
         if (storeFile) {
             log.info "storing ${communityName?:placemark.name}"
             writeKml(communityName?communityName:placemark.name, results)
