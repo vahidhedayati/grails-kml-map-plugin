@@ -11,7 +11,7 @@
 ##### 3.1 Parsing utils (Google Map overlay) - read below
 ##### 3.2 Edit KML Files via plugin and update a boundary 
 
-## Please refer to YouTube video to understand all of above a bit beeter
+## Please refer to YouTube video to understand all of above a bit better
 
  
 
