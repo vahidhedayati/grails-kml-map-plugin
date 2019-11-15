@@ -28,7 +28,7 @@ class KmlGrailsPlugin extends Plugin {
             conf.data= [
                     cache : LookupService.GEOIP_MEMORY_CACHE | LookupService.GEOIP_CHECK_CACHE
             ]
-            conf.path= (Holders.grailsApplication.config.kmplugin.geoMap?:"/opt/kmlplugin/_map/GeoLiteCity.dat")
+            conf.path= (Holders.grailsApplication.config.kmplugin.geoMap?:"/opt/kmlplugin/_map/GeoLite2-City.mmdb")
            // boolean printStatusMessages = (conf.printStatusMessages instanceof Boolean) ? conf.printStatusMessages : true
 
             def dataResource

@@ -22,6 +22,7 @@ class LookupController {
     }
 
     def searchCountry() {
-        render CountryCode.findByName(".*${params.term.toLowerCase()}.*", Pattern.CASE_INSENSITIVE).collect{ CountryCode c->[value:c.getName(), code:c.getAlpha2(), label:c.getName()]} as JSON, status:200
+        ///, Pattern.CASE_INSENSITIVE)
+        render CountryCode.findByName("(?i).*${params.term.toLowerCase()}.*").collect{ CountryCode c->[value:c.getName(), code:c.getAlpha2(), label:c.getName()]} as JSON, status:200
     }
 }
