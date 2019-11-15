@@ -18,6 +18,9 @@ Its a lot of work I need to strip out and put together, will keep me busy in the
 There is already an existing location which holds the GEO location IP lookup map. 
 This location has now been extends to cover KML aspects of the site.
 
+### Youtube video
+[Demo of plugin - very basic ](https://youtu.be/aG5Pj5Ggok4)
+
 ##### Configuration values for your application.yml application.groovy in my case:
 
 ```
