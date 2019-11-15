@@ -2894,6 +2894,20 @@ public enum CountryCode
      *
      * @since 1.11
      */
+    public static List<CountryCode> findByName(String regex, int patternType)
+    {
+        if (regex == null)
+        {
+            throw new IllegalArgumentException("regex is null.");
+        }
+
+        // Compile the regular expression. This may throw
+        // java.util.regex.PatternSyntaxException.
+        Pattern pattern = Pattern.compile(regex,patternType);
+
+        return findByName(pattern);
+    }
+
     public static List<CountryCode> findByName(String regex)
     {
         if (regex == null)
@@ -2907,7 +2921,6 @@ public enum CountryCode
 
         return findByName(pattern);
     }
-
 
     /**
      * Get a list of {@code CountryCode} by a name pattern.
@@ -2957,7 +2970,7 @@ public enum CountryCode
         for (CountryCode entry : values())
         {
             // If the name matches the given pattern.
-            if (pattern.matcher(entry.getName().toLowerCase()).matches())
+            if (pattern.matcher(entry.getName()).matches())
             {
                 list.add(entry);
             }

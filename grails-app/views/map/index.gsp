@@ -7,9 +7,343 @@
     <asset:javascript src="jquery-ui.min.js" />
     <g:set var="entityName" value="${message(code: 'map.label')}" scope="request" />
     <title><g:message code="list.label" args="[entityName]" /></title>
+    <style>
+
+
+    #selectButton a.ws_next, #selectButton a.ws_prev {
+        position:absolute;
+        z-index:60;
+        margin-top: -3.7em;
+
+        color: #000;
+        background-color: transparent;
+        overflow: hidden;
+        width: 5em;
+        height: 5em;
+        right: 1em;
+        border-radius: 50%;
+
+        -webkit-transition: all .4s ease;
+        transition: all .4s ease;
+    }
+    #selectButton a.ws_next {
+        bottom: 1em;
+    }
+    #selectButton a.ws_prev {
+        top: 1em;
+    }
+
+    #selectButton a.ws_prev > span,
+    #selectButton a.ws_next > span {
+        display: block;
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        -webkit-transition: -webkit-transform 300ms ease-in-out;
+        transition: -webkit-transform 300ms ease-in-out, transform 300ms ease-in-out;
+    }
+    #selectButton a.ws_prev:hover > span {
+        -webkit-transform: translateY(2px);
+        -ms-transform: translateY(2px);
+        transform: translateY(2px);
+    }
+    #selectButton a.ws_next:hover > span {
+        -webkit-transform: translateY(-2px);
+        -ms-transform: translateY(-2px);
+        transform: translateY(-2px);
+    }
+
+
+    /* prev */
+    #selectButton a.ws_prev > span i,
+    #selectButton a.ws_prev > span b {
+        position: absolute;
+        left: 2.5em;
+        top: 1.8em;
+        width: 1.5em;
+        height: 1px;
+        background: #000;
+
+        -webkit-transition: -webkit-transform 300ms ease-in-out;
+        transition: -webkit-transform 300ms ease-in-out, transform 300ms ease-in-out;
+    }
+    #selectButton a.ws_prev > span i {
+        -webkit-transform: rotate(60deg);
+        -ms-transform: rotate(60deg);
+        transform: rotate(60deg);
+
+        -webkit-transform-origin: 0 0;
+        -ms-transform-origin: 0 0;
+        transform-origin: 0 0;
+    }
+    #selectButton a.ws_prev:hover > span i {
+        -webkit-transform: rotate(25deg);
+        -ms-transform: rotate(25deg);
+        transform: rotate(25deg);
+    }
+    #selectButton a.ws_prev > span b {
+        -webkit-transform: rotate(-60deg);
+        -ms-transform: rotate(-60deg);
+        transform: rotate(-60deg);
+
+        -webkit-transform-origin: 100% 0;
+        -ms-transform-origin: 100% 0;
+        transform-origin: 100% 0;
+    }
+    #selectButton a.ws_prev:hover > span b {
+        -webkit-transform: rotate(-25deg);
+        -ms-transform: rotate(-25deg);
+        transform: rotate(-25deg);
+    }
+
+
+
+    /* next */
+    #selectButton a.ws_next > span i,
+    #selectButton a.ws_next > span b {
+        position: absolute;
+        bottom: 1.8em;
+        left: 2.5em;
+        width: 1.5em;
+        height: 1px;
+        background: #000;
+        -webkit-transition: -webkit-transform 300ms ease-in-out;
+        transition: -webkit-transform 300ms ease-in-out, transform 300ms ease-in-out;
+    }
+    #selectButton a.ws_next > span i {
+        -webkit-transform: rotate(-60deg);
+        -ms-transform: rotate(-60deg);
+        transform: rotate(-60deg);
+
+        -webkit-transform-origin: 0 0;
+        -ms-transform-origin: 0 0;
+        transform-origin: 0 0;
+    }
+    #selectButton a.ws_next:hover > span i {
+        -webkit-transform: rotate(-25deg);
+        -ms-transform: rotate(-25deg);
+        transform: rotate(-25deg);
+    }
+    #selectButton a.ws_next > span b {
+        -webkit-transform: rotate(60deg);
+        -ms-transform: rotate(60deg);
+        transform: rotate(60deg);
+
+        -webkit-transform-origin: 100% 0;
+        -ms-transform-origin: 100% 0;
+        transform-origin: 100% 0;
+    }
+    #selectButton a.ws_next:hover > span b {
+        -webkit-transform: rotate(25deg);
+        -ms-transform: rotate(25deg);
+        transform: rotate(25deg);
+    }
+    #selectButton a.ws_prev > span b,
+    #selectButton a.ws_next > span b {
+        margin-left: -1.5em;
+    }
+    #polygonstuff {
+        position: absolute;
+        top: 400px;
+        left: 5px;
+        width: 70px;
+        height: 60px;
+        background-color: #ff0000;
+        color: #ffffff;
+        visibility: hidden;
+        z-index: 9001010000;
+    }
+    #title {
+        background-color: transparent;
+        width: 300px;
+        float: left;
+    }
+    .topbutton {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        float: left;
+    }
+    .choice {
+        background-color: transparent;
+        width: 110px;
+        float: left;
+    }
+
+    .topbutton {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        float: left;
+    }
+    #mapHeader {
+        position: absolute;
+        top: 5px;
+        left: 10px;
+        width: 1020px;
+        height: 40px;
+        background-color: #ffffff;
+    }
+    .oklink {
+        margin-left: 25px;
+        padding:0px 3px 0px 3px;
+        background-color: #CCFF66;
+        text-decoration: none;
+    }
+    #mapHeader.label {
+        float: left;
+        text-align: right;
+        margin-right: 5px;
+        width: 80px;
+        padding-top: 5px;
+    }
+    #polylineoptions {
+        position: absolute;
+        background-color: #ffffff;
+        top: 200px;
+        left: 560px;
+        width: 260px;
+        height: 210px;
+        border: 2px solid #337EB7;
+        visibility: hidden;
+        z-index: 9001010000;
+    }
+    #polygonoptions {
+        position: absolute;
+        background-color: #ffffff;
+        top: 200px;
+        left: 560px;
+        width: 260px;
+        height: 255px;
+        border: 2px solid #337EB7;
+        visibility: hidden;
+        z-index: 9001010000;
+    }
+    #rectang {
+        position: absolute;
+        background-color: #ffffff;
+        top: 200px;
+        left: 560px;
+        width: 260px;
+        height: 260px;
+        border: 2px solid #337EB7;
+        visibility: hidden;
+        z-index: 9001010000;
+    }
+    #circleoptions {
+        position: absolute;
+        background-color: #ffffff;
+        top: 200px;
+        left: 560px;
+        width: 260px;
+        height: 260px;
+        border: 2px solid #337EB7;
+        visibility: hidden;
+        z-index: 9001010000;
+    }
+    #markeroptions {
+        width: 950px;
+        height: 310px;
+        background-color: #ffffff;
+        margin: 2px 2px 2px 2px;
+        padding: 8px;
+        border: 1px solid #aaa;
+        position: absolute;
+        top: 45px;
+        left: 10px;
+        z-index:99999;
+        visibility:hidden;
+        z-index: 9001010000;
+    }
+    #directionstyles {
+        position: absolute;
+        background-color: #ffffff;
+        top: 200px;
+        left: 560px;
+        width: 260px;
+        height: 210px;
+        border: 2px solid #337EB7;
+        visibility: hidden;
+        z-index: 9001010000;
+    }
+    #iconimages {
+        width: 430px;
+        height: 300px;
+        background-color: #ffffff;
+        margin: 2px 2px 2px 2px;
+        padding: 8px;
+        float: left;
+        z-index: 9001010000;
+    }
+    #stylestext {
+        width: 485px;
+        height: 280px;
+        background-color: #ffffff;
+        margin: 0px 0px 2px 2px;
+        padding: 5px;
+        float: left;
+        z-index: 9001010000;
+    }
+    #toppers {
+        width: 405px;
+        height: 300px;
+        background-color: #ffffff;
+        margin: 2px 2px 2px 2px;
+        padding: 8px;
+        position: absolute;
+        top: 165px;
+        left: 90px;
+        z-index:99999;
+        visibility:hidden;
+    }
+    #dirtoppers {
+        width: 405px;
+        height: 350px;
+        background-color: #ffffff;
+        margin: 2px 2px 2px 2px;
+        padding: 8px;
+        position: absolute;
+        top: 165px;
+        left: 90px;
+        z-index:99999;
+        visibility: hidden;
+    }
+
+    #RegretButton {
+        visibility: hidden;
+    }
+    .label-outline {
+        background-color: transparent;
+        color: inherit;
+        transition: all .5s;
+    }
+    .label-outline2 {
+        background-color: transparent !important;
+        color: inherit;
+    }
+
+    .label-end.label-outline {
+        text-align: right;
+        margin-top:5px;
+        padding-left:2px;
+        padding-right:2px;
+        color: #428bca;
+        border-color: #428bca;
+    }
+
+    .label-warning.label-outline2 {
+        border-width: 0.1px;
+        text-align: left;
+        border-style: solid;
+        color: #428bca;
+        padding:0;
+        padding-left:0.2em;
+        border-color: rgba(208, 208, 208, 0.92);
+    }
+    </style>
 </head>
 <g:set var="tabIndex" value="${1}"/>
 <body>
+
 <g:render template="/googleMaps"/>
 
 <div class="panel-body">
@@ -44,54 +378,9 @@
                 <span data-id="${instance.foundArea?.id}" class="loadUserCommunity btn btn-primary btn-xs"><g:message code="loadUsers.label"/></span>
                 </g:if>
             </td></td>
-                <td >
-                    <div class="col-sm-3">
 
-                    <div class="col-xs-6">
-                        <label for="searchUnitName" class="col-form-label text-right"> <g:message code="unit.label" /></label>
-                        <g:textField autocomplete="off"  id="searchUnitName" name="unitName"
-                                     class="form-control" />
-                        <g:hiddenField  name="unit.id" id="searchUnitId"/>
-
-                    </div>
-
-
-
-                    <div class="col-xs-6">
-                        <label for="searchClusterName" class="text-right"> <g:message code="clusterName.label" /></label>
-                        <g:textField autocomplete="off"  id="searchClusterName" name="clusterName" class="form-control" />
-                        <g:hiddenField  name="searchClusterId"/>
-
-                    </div>
-                    </div>
-                    <div class="col-sm-2">
-                        <label for="searchClusterName" class="text-right"> <g:message code="mapType.label" /></label>
-                       <g:select name="loadMapType" from="${grails.kml.plugin.utils.LoadMapTypes.values().findAll()}"  class="form-control" valueMessagePrefix="loadMapType"/>
-                    </div>
-                    <div class="col-sm-6">
-
-
-
-                    </div>
-
-                </td>
             </tr>
-            <tr><td colspan="8">
-                <div class="container">
-                    <div class="col-sm-6">
-                        <div class="tagsInpu ">
-                            <g:textField class="actualClusters" name="actualClusters"  data-role="tagsinput" />
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div  class="tagsInput">
-                            <g:textField class="actualUnits" name="actualUnits"  data-role="tagsinput" />
-                        </div>
-                    </div>
 
-                </div>
-
-            </td></tr>
             </table>
 
         <table>

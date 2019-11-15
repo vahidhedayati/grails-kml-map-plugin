@@ -1,6 +1,6 @@
 
 
-<div class="col-sm-7">
+<div class="col-sm-7" style="height:40em !important">
     <div class="row">
         <div id="log"></div>
 
@@ -136,14 +136,13 @@
         </div>
     </div>
 </div>
-<div class="col-sm-4">
 
-    <div id="resizable2" style="height:20em; margin-top:0;">
-        <div id="map" style="width: 100%; height: 100%;" ></div>
-        <g:render template="/googleMaps"/>
-    </div>
-
+<div class="col-sm-4" id="resizable2" style="height:40em; margin-top:0;">
+    <div id="map" style="width: 100%; height: 100%;" ></div>
+    <g:render template="/googleMaps"/>
 </div>
+
+
 </div>
 
 
@@ -911,7 +910,7 @@
         function initialize_gmap(long,lat) {
             var myLatlng = new google.maps.LatLng(lat, long);
             var myOptions = {
-                zoom: 8,
+                zoom: 11,
                 center: myLatlng,
                 mapTypeControl: true,
                 mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
@@ -938,7 +937,7 @@
                 thisshape.push("Polygon");
                 jsCustom=[nav]
                 var myOptions = {
-                    zoom: 10,
+                    zoom: 11,
                     center: nav[0],
                     mapTypeControl: true,
                     mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},

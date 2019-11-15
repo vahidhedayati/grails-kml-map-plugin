@@ -8,6 +8,11 @@
     <title><g:message code="lookup.label" args="[entityName]" /></title>
 </head>
 <body>
+<div class="container">
+    <div class="well">
+
 <g:render template="address"/>
+    </div>
+</div>
 </body>
 </html>

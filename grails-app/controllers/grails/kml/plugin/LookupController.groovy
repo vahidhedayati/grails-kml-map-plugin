@@ -3,6 +3,8 @@ package grails.kml.plugin
 import com.neovisionaries.i18n.CountryCode
 import grails.converters.JSON
 
+import java.util.regex.Pattern
+
 class LookupController {
 
     def lookupService
@@ -20,11 +22,6 @@ class LookupController {
     }
 
     def searchCountry() {
-        def cc = CountryCode.values()
-        def countries =CountryCode.findByName(".*${params.term.toLowerCase()}.*").collect{CountryCode c->[name:c.getName(), code:c.getAlpha2()]}
-        println "== countries = ${countries}  --  ${params}"
-
-
-        render CountryCode.findByName(".*${params.term.toLowerCase()}.*").collect{CountryCode c->[value:c.getName(),code:c.getAlpha2(), label:c.getName()]} as JSON, status:200
+        render CountryCode.findByName(".*${params.term.toLowerCase()}.*", Pattern.CASE_INSENSITIVE).collect{ CountryCode c->[value:c.getName(), code:c.getAlpha2(), label:c.getName()]} as JSON, status:200
     }
 }

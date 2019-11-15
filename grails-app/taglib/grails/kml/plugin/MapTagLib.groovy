@@ -9,4 +9,8 @@ def areaService
         def results = areaService.bindBoundary()
         out << g.render(template:'/map/selectBoundary', model:[instance:results, name:attrs.name])
     }
+
+    def lookup={ attrs->
+        out << g.render(template:'/lookup/address', model:[instance:attrs.instance?:{}])
+    }
 }
