@@ -40,14 +40,15 @@ kmlplugin{
 }
 ```
 Under:
-1.  `/opt/site_kmlplugin/_map/` -> https://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
+1.  `/opt/kmlplugin/_map/` -> https://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
 Override `config.kmplugin.geoMap` or put file into
-Place this under `/opt/site_kmlplugin/_map/GeoLiteCity.dat`
+Place this under `/opt/kmlplugin/_map/GeoLiteCity.dat`
 
 
 
 
-2. `/opt/site_kmlplugin/_map/KML/` ->
+2. `/opt/kmlplugin/_map/KML/` ->
+
 
 Place a file for the given country. This will be KML file you get hold of that contains typically all the official boroughs/councils of a given country in the case of UK we found:
 
@@ -58,10 +59,13 @@ This file was then stored in this folder as
 _default.kml
 
 
-/opt/site_kmlplugin/_map/KML/_default.kml
+/opt/kmlplugin/_map/KML/_default.kml
 
 
-Add this to BootStrap.groovy
+### Please note above  site appears to no longer work 
+You can get hold of [above file from here](https://github.com/vahidhedayati/grailskml-test/tree/master/DOWNLOADS)  
+
+### To parse KML Files  Add this to BootStrap.groovy
 
 ```
  KmlHelper.parseKml()
@@ -76,7 +80,7 @@ Add this to BootStrap.groovy
 When the site starts up for the very first time, it will attempt to read through this file and inside the same folder it will expand out all the found boroughs.
 
 ```bash
-$ ls -rtml /opt/site_kmlplugin/_map/KML/|more
+$ ls -rtml /opt/kmlplugin/_map/KML/|more
 total 9876
 -rw-rw-r-- 1 mx1 mx1 7394653 Nov 29 17:08 _default.kml
 -rw-rw-r-- 1 mx1 mx1   19199 Dec  1 19:36 BEDFORDSHIRE.kml
@@ -98,16 +102,3 @@ Once it has been generated. The site will from there on refer to all created fil
 This means you can now edit each of the generated files for a given community and resave it – a saved version and application restart will then ensure the site is using whatever latest content each community has.
 
 Upon start up you will need to visit the  map regions and it will show what has been produced.
-
-![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-kml-map-plugin/master/documentation/map-region-editor.png)
-![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-kml-map-plugin/master/documentation/map-region-editor-edit.png)
-![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-kml-map-plugin/master/documentation/map-region-editor-edit1.png)
-![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-kml-map-plugin/master/documentation/map-region-editor-edit2.png)
-![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-kml-map-plugin/master/documentation/map-region-editor-edit3.png)
-![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-kml-map-plugin/master/documentation/map-region-editor-edit4.png)
-![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-kml-map-plugin/master/documentation/map-region-editor-edit5.png)
-![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-kml-map-plugin/master/documentation/map-region-editor-edit6.png)
-![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-kml-map-plugin/master/documentation/map-region-editor-edit7.png)
-![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-kml-map-plugin/master/documentation/map-region-editor-edit8.png)
-![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-kml-map-plugin/master/documentation/map-region-editor-edit9.png)
-
