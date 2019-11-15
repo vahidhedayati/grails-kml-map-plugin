@@ -1,4 +1,20 @@
 # grails-kml-map-plugin
+### This is a very powerful plugin that does multiple things:
+
+#### 1. Post/Zip code lookup globally and resolves as much of address as possible
+
+#### 2. If map enabled draws out 
+##### 2.1 Boundary / area if exists 
+##### 2.2 places geo location of location on map
+
+### 3. Provides KML Utils:
+##### 3.1 Parsing utils (Google Map overlay) - read below
+##### 3.2 Edit KML Files via plugin and update a boundary 
+
+## Please refer to YouTube video to understand all of above a bit beeter
+
+ 
+
 A plugin to read raw kml file in - load google maps and overlay kml boundaries over map geo locations, international postcode lookup &amp; resolve address from postcode feature
 
 
