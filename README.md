@@ -14,17 +14,29 @@ The user's actual boundary will also be defined based on a calculation of where 
 
 Its a lot of work I need to strip out and put together, will keep me busy in the evenings for next few months
 
-Notes
-----
-PLEASE NOTE THESE ARE SCRIBBLES - NOTHING IS WORKING AS YET 
-----
 
 There is already an existing location which holds the GEO location IP lookup map. 
 This location has now been extends to cover KML aspects of the site.
 
+##### Configuration values for your application.yml application.groovy in my case:
+
+```
+kmlplugin{
+    //TO USE MAP API FEATURE NEEDS TO BE ENABLED
+    GOOGLE_API_KEY='YOUR GOOGLE API KEY'  
+    MAX_AREAS=30
+
+    ENABLE_MAP_LOOKUP=true
+
+    geoMap="/opt/kmlplugin/_map/GeoLite2-City.mmdb "
+
+    KML_LOC="/opt/kmlplugin/_map/KML/"
+    KML_HISTORY="/opt/kmlplugin/_map/KML_HISTORY/"
+    KML_DEFAULT="_default.kml"
+    KML_RESET_FROM_DEFAULT=false
+}
+```
 Under:
-
-
 1.  `/opt/site_kmlplugin/_map/` -> https://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
 Override `config.kmplugin.geoMap` or put file into
 Place this under `/opt/site_kmlplugin/_map/GeoLiteCity.dat`

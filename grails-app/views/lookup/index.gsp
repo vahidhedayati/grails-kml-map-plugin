@@ -10,8 +10,7 @@
 <body>
 <div class="container">
     <div class="well">
-
-<g:render template="address"/>
+        <g:render template="address"/>
     </div>
 </div>
 </body>
