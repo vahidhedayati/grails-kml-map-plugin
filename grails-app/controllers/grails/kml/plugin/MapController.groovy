@@ -2,14 +2,26 @@ package grails.kml.plugin
 
 import grails.converters.JSON
 import grails.kml.plugin.utils.GeoMapListener
+import grails.kml.plugin.utils.KmlBuilder
 import grails.kml.plugin.utils.KmlHelper
 import grails.kml.plugin.utils.beans.AreaBoundaryBean
 import grails.kml.plugin.utils.beans.AreaMapBean
-import grails.kml.plugin.utils.beans.KmlArea
+import grails.kml.plugin.utils.beans.KmlAddress
 
 class MapController {
 
+    def loadOverlay(KmlAddress a) {
+        //builds up only user on the map
+        println "-- $a.longitude = ${a.latitude} @@ ${a.street}"
+        KmlBuilder builder = new KmlBuilder()
+        builder.placeAddress(a)
 
+        render(text:builder.marshal(), encoding:"UTF-8", contentType:"text/xml")
+    }
+
+    def loadCommunityMap() {
+        render(text: KmlHelper.generateKml(params.name), encoding:"UTF-8", contentType:"text/xml")
+    }
     def index() {
         AreaBoundaryBean bean = new AreaBoundaryBean()
         bindData(bean,params)
@@ -114,7 +126,7 @@ class MapController {
     def saveBoundary(AreaBoundaryBean bean) {
         bean.formatBean()
         bean.validate()
-        bean.updateUser=userService.currentUser
+
         try {
             if (!bean.hasErrors() && ((!bean.foundArea ||!bean.coordinations)&& bean.override)||bean.foundArea && bean.coordinations) {
                 KmlHelper.writeBoundary(bean)

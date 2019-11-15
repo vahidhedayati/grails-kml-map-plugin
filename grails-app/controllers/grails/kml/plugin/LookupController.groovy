@@ -25,6 +25,6 @@ class LookupController {
         println "== countries = ${countries}  --  ${params}"
 
 
-        render CountryCode.findByName(".*${params.term.toLowerCase()}.*").collect{CountryCode c->[value:c.getName(), label:c.getAlpha2()]} as JSON, status:200
+        render CountryCode.findByName(".*${params.term.toLowerCase()}.*").collect{CountryCode c->[value:c.getName(),code:c.getAlpha2(), label:c.getName()]} as JSON, status:200
     }
 }

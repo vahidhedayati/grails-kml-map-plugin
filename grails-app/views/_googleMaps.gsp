@@ -1,6 +1,8 @@
-<script src="http://maps.googleapis.com/maps/api/js?key=${grailsApplication.config.kmlplugin.GOOGLE_API_KEY}"  type="text/javascript"></script>
+<script src="http://maps.googleapis.com/maps/api/js?v=3.exp"  type="text/javascript"></script>
+
 <script>
     var target = document.head;
+    //&key=${grailsApplication.config.kmlplugin.GOOGLE_API_KEY}
     var observer = new MutationObserver(function(mutations) {
         for (var i = 0; mutations[i]; ++i) { // notify when script to hack is added in HTML head
             if (mutations[i].addedNodes[0].nodeName == "SCRIPT" && mutations[i].addedNodes[0].src.match(/\/AuthenticationService.Authenticate?/g)) {

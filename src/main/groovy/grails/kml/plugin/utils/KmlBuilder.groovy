@@ -2,6 +2,7 @@ package grails.kml.plugin.utils
 
 import de.micromata.opengis.kml.v_2_2_0.*
 import grails.kml.plugin.Area
+import grails.kml.plugin.utils.beans.KmlAddress
 import grails.kml.plugin.utils.beans.KmlArea
 import grails.kml.plugin.utils.beans.KmlUser
 
@@ -40,8 +41,19 @@ public class KmlBuilder {
     }
 
 
+    public void placeAddress(KmlAddress a) {
+        GeoCoordinates gmp = getCoordinates(a)
+        addPlacemarkWithLabel(gmp, a.street+' '+a.city+' '+a?.postcode)
+    }
 
-
+    private  GeoCoordinates getCoordinates(KmlAddress u) {
+        GeoCoordinates gmp = new GeoCoordinates()
+        gmp.name = u.street+" "+u.city+" "+u.postcode
+        gmp.longitude = u?.longitude
+        gmp.latitude = u?.latitude
+        m_refToCoordMap.put(u.postcode, gmp)
+        return gmp
+    }
 
     public  Placemark addPlacemarkWithLabel(GeoCoordinates coords, String label) {
         Placemark placemark = m_folder.createAndAddPlacemark();
