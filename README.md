@@ -1,4 +1,5 @@
-# grails-kml-map-plugin
+# grails-kml-plugin
+
 ### This is a very powerful plugin that does multiple things:
 A plugin to read raw kml file in - load google maps and overlay kml boundaries over map geo locations, international postcode lookup &amp; resolve address from postcode feature
 
@@ -21,10 +22,12 @@ A plugin to read raw kml file in - load google maps and overlay kml boundaries o
    compile "grails.kml.plugin:kml:0.1"
 ```
 
-### Youtube video
-[Demo of plugin - very basic ](https://youtu.be/aG5Pj5Ggok4)
+> #### [Demo project (grails 3.3.8)](https://github.com/vahidhedayati/grailskml-test)
+ 
+> ### [Youtube video- Demo of plugin - very basic ](https://youtu.be/aG5Pj5Ggok4)
 
-##### Configuration values for your application.yml application.groovy in my case:
+
+#### Configuration values for your application.yml application.groovy in my case:
 
 ```
 kmlplugin{
@@ -42,6 +45,31 @@ kmlplugin{
     KML_RESET_FROM_DEFAULT=false
 }
 ```
+
+
+#### Upon Start Available urls:
+
+##### 1. Lookup service : http://localhost:8080/lookup
+
+This provides a page that given country / postcode will attempt to:
+ >1.1: Lookup postcode and return as much of address as possible 
+
+ >1.2. If `ENABLE_MAP_LOOKUP` is set to true and `GOOGLE_API_KEY` has valid API access 
+    Will load map, put postcode on map 
+    & if KML boundaries loaded and matches will load in the area overlay on the map.
+    
+    There is also a taglib call `<map:lookup/>` I havent really messed around with this
+    
+##### Map overlay editor :  http://localhost:8080/map
+
+This provides an interface to edit and modify existing kml boundaries on the fly. 
+It provides raw kml extracted file, has feature to upload, hasn't been tested.
+
+
+
+
+Instructions / Notes 
+----------
 Under:
 1.  `/opt/kmlplugin/_map/` -> https://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
 Override `config.kmplugin.geoMap` or put file into
@@ -51,7 +79,6 @@ Place this under `/opt/kmlplugin/_map/GeoLiteCity.dat`
 
 
 2. `/opt/kmlplugin/_map/KML/` ->
-
 
 Place a file for the given country. This will be KML file you get hold of that contains typically all the official boroughs/councils of a given country in the case of UK we found:
 
@@ -64,7 +91,6 @@ _default.kml
 
 /opt/kmlplugin/_map/KML/_default.kml
 
-
 ### Please note above  site appears to no longer work 
 You can get hold of [above file from here](https://github.com/vahidhedayati/grailskml-test/tree/master/DOWNLOADS)  
 
@@ -74,10 +100,6 @@ You can get hold of [above file from here](https://github.com/vahidhedayati/grai
  KmlHelper.parseKml()
 ```
 
-```
-./gradlew wrapper --gradle-version 4.4.1
- ./gradlew publishToMavenLocal
-```
 
  
 When the site starts up for the very first time, it will attempt to read through this file and inside the same folder it will expand out all the found boroughs.
@@ -102,6 +124,6 @@ This triggers an internal process to do what has been demonstrated.
 
 Once it has been generated. The site will from there on refer to all created files to load up each community.
 
-This means you can now edit each of the generated files for a given community and resave it – a saved version and application restart will then ensure the site is using whatever latest content each community has.
+This means you can now edit each of the generated files for a given community and re-save it – a saved version and application restart will then ensure the site is using whatever latest content each community has.
 
 Upon start up you will need to visit the  map regions and it will show what has been produced.
