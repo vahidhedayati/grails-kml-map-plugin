@@ -1,4 +1,4 @@
-<%@ page import="grails.kml.plugin.utils.LoadMapTypes; grails.kml.plugin.utils.GeoMapListener" %>
+<%@ page import="org.grails.plugins.kml.utils.LoadMapTypes; org.grails.plugins.kml.utils.GeoMapListener" %>
 <!doctype html>
 <html>
 <head>
@@ -386,7 +386,7 @@
         <table>
             <tr style="display: none;" id="listAvailable">
                <td colspan="6">
-                   <g:each in="${grails.kml.plugin.utils.GeoMapListener.PLACEMARKS?.sort{it.key}}" var="p">
+                   <g:each in="${org.grails.plugins.kml.utils.GeoMapListener.PLACEMARKS?.sort{it.key}}" var="p">
                     ${p}
 
                        <span  class="dropdown maxZindex">
@@ -437,7 +437,7 @@
             </span>
         </div>
                     <div class="col-sm-4">
-                <g:set var="historyElements" value="${grails.kml.plugin.utils.KmlHelper.getHistory(currentEntry.name)}"/>
+                <g:set var="historyElements" value="${org.grails.plugins.kml.utils.KmlHelper.getHistory(currentEntry.name)}"/>
                 <g:if test="${historyElements}">
                    <div class="col-sm-2"><g:select name="history" from="${historyElements}" noSelection="['':'']"/></div>
                 </g:if>

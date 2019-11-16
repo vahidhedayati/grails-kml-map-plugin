@@ -1,0 +1,5 @@
+grails.kml.plugin
+org.grails.plugins.kml
+org.grails.plugins.kml
+org.grails.plugins.kml.utils
+org.grails.plugins.kml.utils.beans

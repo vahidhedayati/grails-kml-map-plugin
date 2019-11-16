@@ -1,4 +1,4 @@
-<%@ page import="grails.kml.plugin.utils.GeoMapListener" %>
+<%@ page import="org.grails.plugins.kml.utils.GeoMapListener" %>
 <!doctype html>
 <html>
 <head>
