@@ -3,62 +3,103 @@ package org.grails.plugins.kml
 import grails.core.GrailsApplication
 import grails.core.support.GrailsApplicationAware
 import grails.gorm.transactions.Transactional
-import org.grails.plugins.kml.Area
 import org.grails.plugins.kml.utils.CalcLatLong
+import org.grails.plugins.kml.utils.GeoHelper
 import org.grails.plugins.kml.utils.GeoMapListener
 
 class AreaService implements GrailsApplicationAware {
 
-        GrailsApplication grailsApplication
-        def config
+    GrailsApplication grailsApplication
+    def config
 
+    @Transactional
+    def addArea(String countryCode, String area) {
+        if (!Areas.findByName(area)) {
+            def results = GeoHelper.resolveCommunity(countryCode, area)
+            if (results) {
+                log.info("Adding ${area}  to DB")
+                Areas community = new Areas()
+                community.name = area
+                community.latitude = results?.latitude
+                community.longitude = results?.longitude
+                community.neLatitude = results?.nelat
+                community.neLongitude = results?.nelng
+                community.swLatitude = results?.swlat
+                community.swLongitude = results?.swlng
+                community.save()
 
-
-        @Transactional
-        List getActualCommunities(Double longitude, Double latitude,int distance=0, Long communityId=0L) {
-            Map map = bindPostCode(longitude,latitude,distance,measureTypes)
-            String queryAddon=map.queryAddon as String
-            String orderAddon=map.orderAddon as String
-            String where = map.where
-            String query="""
-              select new map (cm.name as areaName, cm.id as id, cm as cm  ${queryAddon}) from Area cm
-        """
-            Map wp=[:]
-            if (communityId)  {
-                where+=" and cm.id != :communityId"
-                wp.communityId=communityId
             }
-
-            query=query+where+"  order by ${orderAddon} "
-            return Area.executeQuery(query, wp, [readOnly:true])?.cm
         }
 
+    }
+    @Transactional
+    def addAreas(String countryCode, List areas) {
+        areas?.each { String area ->
+            if (!Areas.findByName(area)) {
+                def results = GeoHelper.resolveCommunity(countryCode, area)
+                if (results) {
+                    log.info("Adding ${area}  to DB")
+                    Areas community = new Areas()
+                    community.name = area
+                    community.latitude = results?.latitude
+                    community.longitude = results?.longitude
+                    community.neLatitude = results?.nelat
+                    community.neLongitude = results?.nelng
+                    community.swLatitude = results?.swlat
+                    community.swLongitude = results?.swlng
+                    community.save()
 
-        List getArea(Double longitude, Double latitude,int distance=0,String measureTypes='MILES', Long communityId=0L) {
-            Map map = bindPostCode(longitude,latitude,distance,measureTypes)
-            String queryAddon=map.queryAddon as String
-            String orderAddon=map.orderAddon as String
-            String where = map.where
-            String query="""
-            select new map (cm.name as communityName, cm.id as id  ${queryAddon}) from Area cm
-        """
-            Map wp=[:]
-            if (communityId)  {
-                where+=" and cm.id != :communityId"
-                wp.communityId=communityId
+                }
             }
 
-            query=query+where+"  order by ${orderAddon} "
-            def areaList=[]
-            Area.withTransaction {
-                areaList=Area.executeQuery(query, wp, [readOnly:true])
-            }
-
-          //  communityList?.each {
-              //  it.members=it.cm.areaMembers
-           // }
-            return areaList
         }
+    }
+
+    @Transactional
+    List getActualCommunities(Double longitude, Double latitude,int distance=0, Long communityId=0L) {
+        Map map = bindPostCode(longitude,latitude,distance,measureTypes)
+        String queryAddon=map.queryAddon as String
+        String orderAddon=map.orderAddon as String
+        String where = map.where
+        String query="""
+              select new map (cm.name as areaName, cm.id as id, cm as cm  ${queryAddon}) from Areas cm
+        """
+        Map wp=[:]
+        if (communityId)  {
+            where+=" and cm.id != :communityId"
+            wp.communityId=communityId
+        }
+
+        query=query+where+"  order by ${orderAddon} "
+        return Areas.executeQuery(query, wp, [readOnly:true])?.cm
+    }
+
+
+    List getArea(Double longitude, Double latitude,int distance=0,String measureTypes='MILES', Long communityId=0L) {
+        Map map = bindPostCode(longitude,latitude,distance,measureTypes)
+        String queryAddon=map.queryAddon as String
+        String orderAddon=map.orderAddon as String
+        String where = map.where
+        String query="""
+            select new map (cm.name as communityName, cm.id as id  ${queryAddon}) from Areas cm
+        """
+        Map wp=[:]
+        if (communityId)  {
+            where+=" and cm.id != :communityId"
+            wp.communityId=communityId
+        }
+
+        query=query+where+"  order by ${orderAddon} "
+        def areaList=[]
+        Areas.withTransaction {
+            areaList=Areas.executeQuery(query, wp, [readOnly:true])
+        }
+
+        //  communityList?.each {
+        //  it.members=it.cm.areaMembers
+        // }
+        return areaList
+    }
 
     def bindBoundary() {
 
@@ -70,24 +111,24 @@ class AreaService implements GrailsApplicationAware {
         return [validEntries:validEntries]
     }
 
-        Map bindPostCode(Double longitude,Double latitude,int distance=0,String measureTypes='MILES') {
-            CalcLatLong cl = new CalcLatLong()
-            int searchRange = 3659  //Miles
-            if (measureTypes=='KM'){
-                searchRange = 6371 //Km
-            }
-            if (distance==0) {
-                distance=defaultDistance
-            }
+    Map bindPostCode(Double longitude,Double latitude,int distance=0,String measureTypes='MILES') {
+        CalcLatLong cl = new CalcLatLong()
+        int searchRange = 3659  //Miles
+        if (measureTypes=='KM'){
+            searchRange = 6371 //Km
+        }
+        if (distance==0) {
+            distance=defaultDistance
+        }
 
-            String where=''
-            Map values = cl.parse(distance, longitude, latitude)
-            where = addClause(where, """
+        String where=''
+        Map values = cl.parse(distance, longitude, latitude)
+        where = addClause(where, """
             (cm.latitude between ${values.latmin} and ${values.latmax} and
             cm.longitude between ${values.lonmin} and ${values.lonmax})
             """)
 
-            String queryAddon= """ ,  round(
+        String queryAddon= """ ,  round(
         ( ${searchRange} * acos( cos( radians(${latitude}) )
         * cos( radians( cm.latitude ) )
         * cos( radians( cm.longitude ) - radians(${longitude}) )
@@ -95,27 +136,27 @@ class AreaService implements GrailsApplicationAware {
         * sin( radians( cm.latitude) ) ) )
         , 2)  AS distance
         """
-            String orderAddon='distance'
+        String orderAddon='distance'
 
-            return [queryAddon:queryAddon,orderAddon:orderAddon,where:where]
-        }
+        return [queryAddon:queryAddon,orderAddon:orderAddon,where:where]
+    }
 
-        int getDefaultDistance() {
-            if (config) {
-                return ((config as Map)?.find{k,v-> k=='MAX_DISTANCE'}?.value as int ?: 60)
-            } else {
-                return 60
-            }
-        }
-
-        static String addClause(String where,String clause) {
-            return (where ? where + ' and ' : 'where ') + clause
-        }
-
-        void setGrailsApplication(GrailsApplication ga) {
-            config = ga.config.kmlplugin
+    int getDefaultDistance() {
+        if (config) {
+            return ((config as Map)?.find{k,v-> k=='MAX_DISTANCE'}?.value as int ?: 60)
+        } else {
+            return 60
         }
     }
+
+    static String addClause(String where,String clause) {
+        return (where ? where + ' and ' : 'where ') + clause
+    }
+
+    void setGrailsApplication(GrailsApplication ga) {
+        config = ga.config.kmlplugin
+    }
+}
 
 
 

@@ -19,29 +19,54 @@ A plugin to read raw kml file in - load google maps and overlay kml boundaries o
 
 #### How to install:  Dependency Grails 3 (build.gradle):
  ```
-   compile "grails.kml.plugin:kml:0.1"
+ compile "org.grails.plugins.kml:kml:0.2"
 ```
 
 > #### [Demo project (grails 3.3.8)](https://github.com/vahidhedayati/grailskml-test)
  
-> ### [Youtube video- Demo of plugin - very basic ](https://youtu.be/aG5Pj5Ggok4)
-
+> ### YouTube videos  
+  [Part 1 Walk through urls and simple usage of plugin - very basic](https://youtu.be/m4ecgmGn4UA)
+  
+  [Part 2 Walk through of how to build on new grails project from scratch](https://youtu.be/PA_O4xLGEkc)
+  
+  [Part 3 Talk through code process / steps](https://youtu.be/DQPkME4uGRs)
+  
+  
+> ### [Java docs for classes](https://vahidhedayati.github.io/grails-kml-map-plugin/)
 
 #### Configuration values for your application.yml application.groovy in my case:
 
 ```
 kmlplugin{
     //TO USE MAP API FEATURE NEEDS TO BE ENABLED
-    GOOGLE_API_KEY='YOUR GOOGLE API KEY'  
+    GOOGLE_API_KEY='YOUR GOOGLE API KEY'
+    //This is total amount of local areas to collect for editing KML  
     MAX_AREAS=30
 
+    //How far to look for local areas in miles
+    MAX_DISTANCE=30
+
+    //This defines to enable map
     ENABLE_MAP_LOOKUP=true
 
+    // If you don't have API feature enabled on key disable this you get a developer map instead
+    MAP_HAS_API_ENABLED=false
+
+    //Physical location of geoLitCity file  - create and ensure web user has access
     geoMap="/opt/kmlplugin/_map/GeoLite2-City.mmdb"
 
+    //2 char country code of where your _default.kml belongs to so we can look up area names
+    KML_COUNTRY='UK'
+
+    // Internal folder to manage KML files - create and ensure web user has access
     KML_LOC="/opt/kmlplugin/_map/KML/"
     KML_HISTORY="/opt/kmlplugin/_map/KML_HISTORY/"
+
+    //Drop this file in KML_LOC root folder - refer to notes below
     KML_DEFAULT="_default.kml"
+
+    //This will re-run - recreate entries from _default.kml
+    //if you are running in dev on h2 db - it is worth enabling this to add areas to db upon boot
     KML_RESET_FROM_DEFAULT=false
 }
 ```
@@ -83,7 +108,7 @@ Place this under `/opt/kmlplugin/_map/GeoLiteCity.dat`
 Place a file for the given country. This will be KML file you get hold of that contains typically all the official boroughs/councils of a given country in the case of UK we found:
 
 [was here](http://www.nemezisproject.co.uk/2012/05/20/google-maps-api-uk-local-council-overlay-boundaries-kml/)
-Site appears to no longer work. You can get hold of [above file from here](https://github.com/vahidhedayati/grailskml-test/tree/master/DOWNLOADS)  
+Site appears to no longer work. You can get hold of [file from here](https://github.com/vahidhedayati/grailskml-test/tree/master/DOWNLOADS)  
 
 This file was then stored in this folder as 
 

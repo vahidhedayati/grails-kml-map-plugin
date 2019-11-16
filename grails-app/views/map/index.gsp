@@ -4,9 +4,10 @@
 <head>
     <meta name="layout" content="main" />
     <asset:stylesheet href="jquery-ui.min.css" />
+    <asset:stylesheet href="font-awesome.min.css" />
     <asset:javascript src="jquery-ui.min.js" />
-    <g:set var="entityName" value="${message(code: 'map.label')}" scope="request" />
-    <title><g:message code="list.label" args="[entityName]" /></title>
+    <g:set var="entityName" value="${message(code: 'map.label', args:[currentEntry.name])}" scope="request" />
+    <title><g:message code="editEntry.label" args="[entityName]" /></title>
     <style>
 
 
@@ -339,6 +340,170 @@
         padding-left:0.2em;
         border-color: rgba(208, 208, 208, 0.92);
     }
+    .btn-default4.btn-outline {
+        margin-top: -8px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        text-align: center;
+        color: #428bca;
+        border-color: #adadad;
+    }
+
+    .btn-default5.btn-outline {
+        margin-top: -8px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        text-align: left;
+        color: #428bca;
+        border-color: #adadad;
+    }
+
+    .btn-default4.btn-outline:hover {
+        background:#ccc;
+        border-color: #adadad;
+        color: #428bca;
+    }
+    .btn-default9.btn-outline {
+        margin-top: -8px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        text-align: center;
+        color: #090a99;
+        border-color: rgba(220, 69, 0, 0.36);
+        display:inline-block;
+        margin-bottom: 0.01em;
+    }
+
+
+    .btn-group .active {
+        color: #fff;
+    }
+    .btn-outline {
+        background-color: transparent;
+        color: inherit;
+        transition: all .5s;
+    }
+
+    .btn-primary.btn-outline {
+        color: #428bca;
+    }
+
+    .btn-success.btn-outline {
+        /*  color: #5cb85c;*/
+        color: #FFFFFF;
+    }
+
+    .btn-info.btn-outline {
+        color: #5bc0de;
+    }
+
+    .btn-warning.btn-outline {
+        color: #f0ad4e;
+    }
+    .ui-widget {
+        z-index: 1992;
+        zoom:1;
+    }
+    .ui-widget .ui-datepicker {
+        z-index: 12993 !important;
+        zoom:1;
+    }
+    .ui-widget-overlay {
+        z-index: 0 !important;
+    }
+    .btn-logout.btn-outline {
+        color: #ff0000;
+    }
+    .btn-danger.btn-outline {
+        /*color: #d9534f;*/
+        color: #FFFFFF;
+    }
+    .btn-danger2.btn-outline {
+        color: #d9534f;
+        margin-top: -8px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-color: #d9534f;
+    }
+    .btn-danger2.btn-outline:hover {
+        color: #1ba026;
+        background: #fff;
+    }
+    .btn-danger3.btn-outline {
+        color: #d9534f;
+        margin-top: -0.2em;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-color: #d9534f;
+    }
+    .btn-danger3.btn-outline:hover {
+        color: #fff;
+        background:#d9534f;
+    }
+
+
+    .btn-default.btn-outline {
+        color: #FFFFFF;
+        background: transparent !important;
+    }
+    .btn-default.btn-outline.btn-danger4{
+        background: transparent !important;
+        color: #428bca !important;
+        margin-top:0.61em;
+        font-size: 1.1em;
+    }
+    .well .navbar-nav > li > a {
+        color: #428bca !important;
+    }
+    .maxWidth {
+        min-width: 100px;
+        max-width: 220px;
+    }
+    .btn-default2.btn-outline {
+        color: #FFFFFF;
+        text-align: left;
+    }
+    .btn-default2.btn-outline:hover {
+        color: #ff0000 !important;
+    }
+    .btn-default3.btn-outline {
+        color: #FFFFFF;
+        text-align: center;
+    }
+
+    .btn-primary>.menuAction,.btn .btn-primary>.actionButton {
+        font-style:normal;
+        color:#fff !important;
+    }
+
+    #contextMenu .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+    .maxZindex .dropdown-menu.userMenu .sub-menu  {
+        background: #d3cdce !important;
+        font-size: 0.94em;
+        margin-top: -0.9em;
+        position: absolute;
+        left: 140px;
+    }
+
+    .maxZindex a,.maxZindex li  {
+        color: #000;
+    }
+    .maxZindex li:hover {
+        color: #ff0000;
+        background: rgb(0, 0, 0);
+    }
     </style>
 </head>
 <g:set var="tabIndex" value="${1}"/>
@@ -353,7 +518,7 @@
             <div class="row">
                 <span class="col-sm-12">
                     <i class="fa fa-globe"></i>
-                    <g:message code="map.label" args="${['']}"/>
+                    <g:message code="map.label" args="${[currentEntry.name]}"/>
                 </span>
             </div>
         </div>
@@ -374,9 +539,7 @@
                 <g:if test="${instance.areas}">
                     <span id="localComms" onclick="toggleBlock('#listLocal');" class="btn btn-info btn-xs"><g:message code="localCommunities.label"/></span>
                 </g:if>
-                <g:if test="${instance.foundArea}">
-                <span data-id="${instance.foundArea?.id}" class="loadUserCommunity btn btn-primary btn-xs"><g:message code="loadUsers.label"/></span>
-                </g:if>
+
             </td></td>
 
             </tr>
@@ -387,12 +550,13 @@
             <tr style="display: none;" id="listAvailable">
                <td colspan="6">
                    <g:each in="${org.grails.plugins.kml.utils.GeoMapListener.PLACEMARKS?.sort{it.key}}" var="p">
-                    ${p}
+                       <span class="maP${p?.value?.area?.id}  btn btn-xs btn-${p.value.area?'default':'danger'}">
+                    ${p.key}
 
                        <span  class="dropdown maxZindex">
                            <button  class="btn btn-default9 btn-danger2 btn-xs dropdown-toggle actionButton"
                                     data-name="${p.key}"
-
+                                    data-id="${p?.value?.area?.id}"
                                     type="button"  data-toggle="dropdown"><i class="fa fa-user-md"></i><b class="caret"></b></button>
 
                        </span>
@@ -404,14 +568,12 @@
                 <tr id="listLocal"  style="display: none;">
                     <td colspan="6">
                     <g:each in="${instance.areas}" var="p">
-                        <span class=" btn btn-xs btn-${p?'default':'danger'}" >
+                        <span class=" btn btn-xs btn-${p.area?'default':'danger'}" >
                             ${p.name}
-
-
 
                             <span  class="dropdown maxZindex">
                                 <button  class="btn btn-default9 btn-danger2 btn-xs dropdown-toggle actionButton"
-                                         data-name="${p.name}"
+                                         data-id="${p?.area?.id}" data-name="${p.name}"
                                          type="button"  data-toggle="dropdown"><i class="fa fa-user-md"></i><b class="caret"></b></button>
 
                             </span>
@@ -429,7 +591,7 @@
             <input type="text" name="name" id="communityName" value="${currentEntry.name}" class="form-control" readonly="true"/>
         </div>
         <div class="col-sm-2">
-            <span class="btn btn-danger btn-xs" onclick="editlines();"  id="EditButton">${g.message(code:'default.button.edit.label')}</span>
+            <span class="btn btn-danger btn-xs" onclick="editlines();"  id="EditButton">${g.message(code:'edit.label')}</span>
         </div>
         <div class="col-sm-2">
             <span id="saveCommunity" style="display:none;">
@@ -448,7 +610,7 @@
         <ul class="navigation">
         </ul>
         <div class="col-sm-12" id="communityMap" style="height: 40em;">
-            @COMMUNITM
+
         </div>
         <ul class="navigation">
         </ul>
@@ -470,7 +632,6 @@
 
         <ul id="contextMenu" class="dropdown-menu userMenu " role="menu" >
             <li><a id="loadMap"><g:message code="loadMap.label" args="['']"/></a></li>
-            <li><a id="loadUsers"><g:message code="loadUsers.label" args="['']"/></a></li>
             <li id="delKml"><a id="deleteKml"><g:message code="delete.label" args="['']"/></a></li>
         </ul>
 
@@ -579,6 +740,7 @@
         }
 
         function loadMapButton(name) {
+            console.log('a1')
             loadCommunityMap(name);
 
             $('#listAvailable,#listLocal').hide();
@@ -1459,7 +1621,9 @@
 
         // Not used
         function setDirectionsMarker(point) {
-            var image = new google.maps.MarkerImage('http://www.birdtheme.org/useful/images/square.png');
+            var image = new google.maps.MarkerImage("${asset.assetPath(src:'/map/square.png')}");
+
+
             var marker = new google.maps.Marker({
                 position: point,
                 map: map,
@@ -2329,6 +2493,7 @@
                 url: "${g.createLink(controller: 'map',action:'communityFromGeo')}/?lat=" + lat + "&lng=" + lng,
                 data: $('#search').serialize(),
                 success: function (data) {
+                    console.log('a2')
                     loadCommunityMap(data.name)
                 }
             })

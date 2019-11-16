@@ -1,12 +1,12 @@
 package org.grails.plugins.kml.utils.beans
 
-import org.grails.plugins.kml.Area
+import org.grails.plugins.kml.Areas
 import org.grails.plugins.kml.utils.KmlBuilder
 import grails.validation.Validateable
 
 class AreaMapBean implements Validateable {
 
-    Area area
+    Areas area
 
     String areaHierarchy
 

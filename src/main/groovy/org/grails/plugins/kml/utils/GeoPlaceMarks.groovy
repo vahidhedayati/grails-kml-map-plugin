@@ -1,5 +1,7 @@
 package org.grails.plugins.kml.utils
 
+import org.grails.plugins.kml.Areas
+
 class GeoPlaceMarks {
 
     String name
@@ -9,6 +11,7 @@ class GeoPlaceMarks {
     String firstgoogleMapString
     String googleMapString
 
+    Areas area
 
 
     GeoPlaceMarks() {
@@ -20,7 +23,7 @@ class GeoPlaceMarks {
         latitudes=results?.latitude?.flatten()
         longitudes=results?.longitude?.flatten()
         this.results=results
-
+        this.area=Areas.executeQuery("from Areas where upper(name)=:name",[name:name.toUpperCase()])[0]
         List sb=[]
         results?.each {
             sb << "new google.maps.LatLng(${it.latitude},${it.longitude})"

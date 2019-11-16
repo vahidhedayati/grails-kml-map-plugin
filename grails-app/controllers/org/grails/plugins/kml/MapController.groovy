@@ -12,7 +12,7 @@ class MapController {
 
     def loadOverlay(KmlAddress a) {
         //builds up only user on the map
-        println "-- $a.longitude = ${a.latitude} @@ ${a.street}"
+
         KmlBuilder builder = new KmlBuilder()
         builder.placeAddress(a)
 
@@ -23,21 +23,25 @@ class MapController {
         render(text: KmlHelper.generateKml(params.name), encoding:"UTF-8", contentType:"text/xml")
     }
     def index() {
+
+        def currentEntry
+        if (params.name) {
+            currentEntry=GeoMapListener.PLACEMARKS.get(params.name)
+        } else {
+            currentEntry=GeoMapListener.PLACEMARKS.find().value
+            params.name=currentEntry.name
+        }
+
         AreaBoundaryBean bean = new AreaBoundaryBean()
         bindData(bean,params)
         bean.formatBean()
-        def currentEntry
-        if (bean.name) {
-            currentEntry=GeoMapListener.PLACEMARKS.get(bean.name)
-        } else {
-            currentEntry=GeoMapListener.PLACEMARKS.find().value
-        }
 
         render view:'index', model:[currentEntry:currentEntry, instance:bean]
     }
     def upload() {
 
     }
+
     def uploadKml() {
         try {
             def f = request.getFile('filename')

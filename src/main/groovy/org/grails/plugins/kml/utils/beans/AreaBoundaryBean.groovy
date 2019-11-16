@@ -1,8 +1,10 @@
 package org.grails.plugins.kml.utils.beans
 
-import org.grails.plugins.kml.Area
+import grails.util.Holders
+import org.grails.plugins.kml.Areas
 import org.grails.plugins.kml.utils.GeoCoordinates
 import grails.validation.Validateable
+import org.grails.plugins.kml.utils.GeoMapListener
 
 class AreaBoundaryBean implements Validateable{
 
@@ -12,9 +14,10 @@ class AreaBoundaryBean implements Validateable{
 
     String coordinations
     Boolean override
-    Area foundArea
+    Areas foundArea
     List<GeoCoordinates> coords=[]
     List areas=[]
+    List myAreas =[]
 
 
     //When a user clicks on combine communities - it will recollect itself (i.e. this bean)
@@ -31,26 +34,29 @@ class AreaBoundaryBean implements Validateable{
 
     def formatBean() {
         if (name) {
-            /*  foundArea=Area.executeQuery("from Area where upper(name)=:name",[name:name.toUpperCase()])[0]
+            foundArea=Areas.executeQuery("from Areas where upper(name)=:name",[name:name.toUpperCase()])[0]
             if (foundArea) {
                 Double longi= foundArea.longitude?.doubleValue()
                 Double lat=foundArea.latitude?.doubleValue()
-                println "yes ${lat}"
 
-              def actualAreas=Holders.grailsApplication.mainContext.areaService.getArea(longi, lat,90,'MILES', foundArea.id as Long)?.
+                def actualAreas= Holders.grailsApplication.mainContext.areaService.getArea(longi, lat,Holders.grailsApplication.config.kmlplugin?.MAX_DISTANCE?:30,'MILES', foundArea.id as Long)?.
                         sort{it.distance}?.take(Holders.grailsApplication.config.kmlplugin?.MAX_AREAS?:30)?.collect()
                 if (actualAreas) {
                     def ids=actualAreas.id
-                    def found = GeoMapListener.PLACEMARKS.values().findAll{it.community && it.community.id in ids||it.name.toUpperCase()==name.toUpperCase()}
+                    def found = GeoMapListener.PLACEMARKS.values().findAll{it.area && it.area.id in ids||it.name.toUpperCase()==name.toUpperCase()}
                     //Sort the communities according to distance - so it is easier closest first
                     actualAreas?.each { c->
-                        areas+= (found.findAll{k-> k.community.id==c.id})
+                        def fd = found.find{k-> k.area && k.area.id==c.id}
+                        if (fd) {
+                            areas.add(fd)
+                            myAreas.add(fd)
+                        }
                     }
                 }
 
 
 
-            }*/
+            }
         }
 
         if (coordinations) {

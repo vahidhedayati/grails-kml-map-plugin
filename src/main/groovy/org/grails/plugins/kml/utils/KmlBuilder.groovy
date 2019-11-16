@@ -1,7 +1,7 @@
 package org.grails.plugins.kml.utils
 
 import de.micromata.opengis.kml.v_2_2_0.*
-import org.grails.plugins.kml.Area
+import org.grails.plugins.kml.Areas
 import org.grails.plugins.kml.utils.beans.KmlAddress
 import org.grails.plugins.kml.utils.beans.KmlUser
 
@@ -83,9 +83,11 @@ public class KmlBuilder {
 
     }
 
-    public  void linkCommunity(Area area) {
+    public  void linkCommunity(Areas area) {
 
-        GeoCoordinates communityRecord = getCoordinates(area)
+
+        /*
+         GeoCoordinates communityRecord = getCoordinates(area)
         area?.members?.each{ KmlUser s ->
             GeoCoordinates communityMemberRecord = getCoordinates(s)
             if (communityMemberRecord.longitude && communityRecord.longitude && !addedUsers.contains(s.id)) {
@@ -94,6 +96,7 @@ public class KmlBuilder {
                 addPlacemarkWithLabel(communityMemberRecord, s.friendlyName)
             }
         }
+        */
 
     }
 

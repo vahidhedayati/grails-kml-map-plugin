@@ -1,4 +1,13 @@
-<script src="http://maps.googleapis.com/maps/api/js?v=3.exp&key=${grailsApplication.config.kmlplugin.GOOGLE_API_KEY}"  type="text/javascript"></script>
+<g:if test="${grailsApplication.config.kmlplugin.MAP_HAS_API_ENABLED &&
+        Boolean.valueOf(grailsApplication.config.kmlplugin.MAP_HAS_API_ENABLED)==true &&
+        grailsApplication.config.kmlplugin.GOOGLE_API_KEY }">
+    <script src="http://maps.googleapis.com/maps/api/js?v=3.exp&key=${grailsApplication.config.kmlplugin.GOOGLE_API_KEY}"  type="text/javascript"></script>
+</g:if>
+<g:else>
+    <!-- developer mode of google maps -->
+    <script src="http://maps.googleapis.com/maps/api/js?v=3.exp"  type="text/javascript"></script>
+</g:else>
+
 
 <script>
     var target = document.head;

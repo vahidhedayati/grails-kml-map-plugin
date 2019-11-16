@@ -1,4 +1,4 @@
-package grails.km.plugin
+package org.grails.plugins.kml
 
 import org.grails.plugins.kml.utils.GeoHelper
 import org.grails.plugins.kml.utils.GeoMapListener

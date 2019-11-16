@@ -1,6 +1,7 @@
 package org.grails.plugins.kml.utils
 
 import de.micromata.opengis.kml.v_2_2_0.*
+import org.grails.plugins.kml.AreaService
 import org.grails.plugins.kml.utils.beans.AreaBoundaryBean
 import org.grails.plugins.kml.utils.beans.KmlUser
 import grails.util.Holders
@@ -16,11 +17,15 @@ class KmlHelper {
     public static final long ENTRIES_PER_DIRECTORY=2000
     public static final long MAX_UPLOAD_SIZE=10*1024*1024
 
+   // public static List  COLLECTED_NAMES=[]
+
  //   public static Logger log = LoggerFactory.getLogger(getClass().name)
     static String ROOT_PATH= Holders.grailsApplication.config.kmlplugin.KML_LOC ?:'/opt/kmlplugin/_map/KML/'
     static String KML_HISTORY= Holders.grailsApplication.config.kmlplugin.KML_HISTORY?:'/opt/kmlplugin/_map/KML_HISTORY/'
     static String DEFAULT_KML= Holders.grailsApplication.config.kmlplugin.KML_DEFAULT?:"_default.kml"
+    static String COUNTRY_CODE= Holders.grailsApplication.config.kmlplugin.KML_COUNTRY?:"UK"
     static boolean KML_RESET_FROM_DEFAULT= Holders.grailsApplication.config.kmlplugin.KML_RESET_FROM_DEFAULT?:false
+
 
     public static List getHistory(String name) {
         def files = Helper.ls(KML_HISTORY+name,'kml')
@@ -37,7 +42,6 @@ class KmlHelper {
             parseFeature(kml.feature,false,true)
             GeoMapListener.changeHistory(name, original)
         }
-
     }
 
     /**
@@ -50,6 +54,10 @@ class KmlHelper {
             InputStream is = new FileInputStream(ROOT_PATH+DEFAULT_KML)
             Kml kml = Kml.unmarshal(is)
             parseFeature(kml.feature,true)
+            //if (COLLECTED_NAMES) {
+            //    Holders.grailsApplication.mainContext.areaService.addAreas(COUNTRY_CODE,COLLECTED_NAMES)
+             //   COLLECTED_NAMES=[]
+            //}
         } else {
             //Unless told to reset it will check to see if the default file has been expanded
             //if not will do similar to above (first time round)
@@ -65,6 +73,10 @@ class KmlHelper {
                     InputStream is = new FileInputStream(ROOT_PATH+DEFAULT_KML)
                     Kml kml = Kml.unmarshal(is)
                     parseFeature(kml.feature,true)
+                   // if (COLLECTED_NAMES) {
+                     //   Holders.grailsApplication.mainContext.areaService.addAreas(COUNTRY_CODE,COLLECTED_NAMES)
+                    //    COLLECTED_NAMES=[]
+                    //}
                 } else {
                     files.each { f->
                         if (f!=DEFAULT_KML) {
@@ -129,9 +141,12 @@ class KmlHelper {
     public static void getPlacemark(Placemark placemark, boolean storeFile=false,boolean historyItem=false, String communityName=null) {
         Geometry geometry = placemark.getGeometry()
         List results = parseGeometry(geometry)
-        //println "- getPlacemark Placemark working on ${placemark.name}"
+         log.info "- getPlacemark Placemark working on ${placemark.name}"
         if (storeFile) {
+            //this.COLLECTED_NAMES.add(communityName?:placemark.name)
+            Holders.grailsApplication.mainContext.areaService.addArea(COUNTRY_CODE,communityName?:placemark.name)
             log.info "storing ${communityName?:placemark.name}"
+
             writeKml(communityName?communityName:placemark.name, results)
         }
         if (historyItem) {
@@ -218,7 +233,7 @@ class KmlHelper {
                 results<<[latitude:it.latitude,longitude:it.longitude]
             }
             GeoMapListener.createUpdate(bean.name,results)
-            log.info "Creating ${file1.name}"
+            log.info "Creating file  ${file1.name}"
             kml.marshal(file1)
 
             if (bean.oldName && bean.oldName!=bean.name) {

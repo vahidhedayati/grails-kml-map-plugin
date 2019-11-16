@@ -240,7 +240,7 @@
                 <tr>
                      <td><asset:image src="/map/dd-start.png"/></td>
                      <td><asset:image src="/map/dd-end.png"/></td>
-                     <td><asset:image src="/map//markerA.png"/></td>
+                     <td><asset:image src="/map/markerA.png"/></td>
                      <td><asset:image src="/map/marker_orangeA.png"/></td>
                      <td><asset:image src="/map/marker_yellowA.png"/></td>
                      <td><asset:image src="/map/marker_greenA.png"/></td>
@@ -255,7 +255,7 @@
                     </td>
                     <td><input type="button" name="button" value="${g.message(code:'use.label')}" onclick='iconoptions("${asset.image(src: "/map/dd-end.png")}");' />
                     </td>
-                    <td><input type="button" name="button" value="${g.message(code:'use.label')}" onclick='iconoptions("${asset.image(src: "/map//markerA.png")}");' />
+                    <td><input type="button" name="button" value="${g.message(code:'use.label')}" onclick='iconoptions("${asset.image(src: "/map/markerA.png")}");' />
                     </td>
                     <td><input type="button" name="button" value="${g.message(code:'use.label')}" onclick='iconoptions("${asset.image(src: "/map/marker_orangeA.png")}");' />
                     </td>
