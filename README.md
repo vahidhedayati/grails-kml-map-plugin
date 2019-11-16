@@ -15,9 +15,11 @@ A plugin to read raw kml file in - load google maps and overlay kml boundaries o
 
 ## Please refer to YouTube video to understand all of above a bit better
 
- 
 
-
+#### How to install:  Dependency Grails 3 (build.gradle):
+ ```
+   compile "grails.kml.plugin:kml:0.1"
+```
 
 ### Youtube video
 [Demo of plugin - very basic ](https://youtu.be/aG5Pj5Ggok4)
