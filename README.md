@@ -82,7 +82,8 @@ Place this under `/opt/kmlplugin/_map/GeoLiteCity.dat`
 
 Place a file for the given country. This will be KML file you get hold of that contains typically all the official boroughs/councils of a given country in the case of UK we found:
 
-http://www.nemezisproject.co.uk/2012/05/20/google-maps-api-uk-local-council-overlay-boundaries-kml/
+[was here](http://www.nemezisproject.co.uk/2012/05/20/google-maps-api-uk-local-council-overlay-boundaries-kml/)
+Site appears to no longer work. You can get hold of [above file from here](https://github.com/vahidhedayati/grailskml-test/tree/master/DOWNLOADS)  
 
 This file was then stored in this folder as 
 
@@ -91,8 +92,6 @@ _default.kml
 
 /opt/kmlplugin/_map/KML/_default.kml
 
-### Please note above  site appears to no longer work 
-You can get hold of [above file from here](https://github.com/vahidhedayati/grailskml-test/tree/master/DOWNLOADS)  
 
 ### To parse KML Files  Add this to BootStrap.groovy
 
