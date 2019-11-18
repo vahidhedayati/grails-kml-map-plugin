@@ -64,7 +64,6 @@ class GeoMapListener {
     }
 
     public static void update(String name, List results) {
-        //println "working on $name"
         log.info "Update ${name}"
         if (name != 'TOBESET') {
             def r = PLACEMARKS.get(name)

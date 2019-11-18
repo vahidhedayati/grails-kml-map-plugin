@@ -98,19 +98,15 @@ class KmlHelper {
      */
     public static void parseFeature(Feature feature, boolean storeFile=false,boolean historyItem=false, String communityName=null) {
         if(feature) {
-            //println "- ${feature.getClass()} = feature"
             if(feature instanceof Document) {
                 feature?.feature?.each { documentFeature->
                     if(documentFeature instanceof Placemark) {
-                       // println "documentFeature working on placemark"
                         getPlacemark((Placemark) documentFeature,storeFile,historyItem,communityName)
                     } else if (documentFeature instanceof Folder) {
-                        //println "documentFeature working on folder"
                         getFeatureList(documentFeature.feature,storeFile,historyItem,communityName)
                     }
                 }
             } else if(feature instanceof Placemark) {
-               // println "feature working on placemark featurrre"
                 getPlacemark((Placemark) feature,storeFile,historyItem,communityName)
 
             }
@@ -156,8 +152,6 @@ class KmlHelper {
             if (communityName) {
                 GeoMapListener.createUpdate(communityName, results)
             } else {
-
-                //println "working on ${placemark.name} ${placemark.getGeometry()} ${placemark.hashCode()}"
                 if (placemark && placemark.name) {
                     GeoMapListener.update(placemark.name, results)
                 }
@@ -409,7 +403,6 @@ class KmlHelper {
                 .withDescription(name)
                 .withStyleUrl("styles.kml#jugh_style")
                 .createAndSetPoint()
-           // println "-- $name $r vs $r.results"
         placeMarkPoint.withExtrude(false)
         placeMarkPoint.withAltitudeMode(AltitudeMode.CLAMP_TO_GROUND)
         r.results?.each { t->

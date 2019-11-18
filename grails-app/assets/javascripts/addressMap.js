@@ -262,7 +262,7 @@ function AddressMap() {
     }
 
     function drawRectangle() {
-        gob('EditButton').disabled = 'disabled';
+        gob('editButton').disabled = 'disabled';
         southWest = startMarker.getPosition(); // used in logCode6()
         northEast = nemarker.getPosition(); // used in logCode6()
         var latLngBounds = new google.maps.LatLngBounds(
@@ -711,21 +711,9 @@ function AddressMap() {
     var jsCustom = []
 
     function addOverlayFromKML1() {
-        //var linepoints = [];
+
         for (var i = 0; i < shapenumbers; i++) {
-            /*linepoints = jsfromphp[i];
-         if(linepoints[0] != linepoints[linepoints.length-1]){
-         linepoints.push(linepoints[0]);
 
-         }else{
-         jsfromphp.pop();
-         }
-         if(linepoints[0] == linepoints[linepoints.length-1]){
-         linepoints.pop();
-         }
-         */
-
-            //console.log(' - '+jsfromphp[i])
             lineShape[i] = new google.maps.Polyline({
                 path: jsCustom[i],
                 strokeColor: lineColor,
@@ -755,7 +743,7 @@ function AddressMap() {
         new google.maps.Size(12, 20),
         new google.maps.Point(0, 0),
         new google.maps.Point(6, 16)
-);
+    );
 
     this.loadMap=function(url) {
         $.get(url, function (data) {
@@ -847,97 +835,97 @@ function AddressMap() {
             createmarkerstyleobject();
             preparePolyline(); // create a Polyline object
         });
-
-        function mapzoom() {
-            var mapZoom = map.getZoom();
-            gob("myzoom").value = mapZoom;
-        }
-
-        function cursorposition(mapregion) {
-            google.maps.event.addListener(mapregion, 'mousemove', function (point) {
-                var LnglatStr6 = point.latLng.lng().toFixed(6) + ', ' + point.latLng.lat().toFixed(6);
-                var latLngStr6 = point.latLng.lat().toFixed(6) + ', ' + point.latLng.lng().toFixed(6);
-                gob('over').options[0].text = LnglatStr6;
-                gob('over').options[1].text = latLngStr6;
-            });
-        }
-
-        function createplacemarkobject() {
-            var thisplacemark = new placemarkobject();
-            placemarks.push(thisplacemark);
-        }
-
-        function createpolygonstyleobject() {
-            var polygonstyle = new polystyle();
-            polygonstyles.push(polygonstyle);
-        }
-
-        function createlinestyleobject() {
-            var polylinestyle = new linestyle();
-            polylinestyles.push(polylinestyle);
-        }
-
-        function createcirclestyleobject() {
-            var cirstyle = new circstyle();
-            circlestyles.push(cirstyle);
-        }
-
-        function createmarkerstyleobject() {
-            var thisstyle = new markerstyleobject();
-            markerstyles.push(thisstyle);
-        }
-
-        function preparePolyline() {
-            var polyOptions = {
-                path: polyPoints,
-                strokeColor: polylinestyles[lcur].color,
-                strokeOpacity: polylinestyles[lcur].lineopac,
-                strokeWeight: polylinestyles[lcur].width
-            };
-            polyShape = new google.maps.Polyline(polyOptions);
-            polyShape.setMap(map);
-            /*var tmpPolyOptions = {
-         strokeColor: polylinestyles[lcur].color,
-         strokeOpacity: polylinestyles[lcur].lineopac,
-         strokeWeight: polylinestyles[lcur].width
-         };
-         tmpPolyLine = new google.maps.Polyline(tmpPolyOptions);
-         tmpPolyLine.setMap(map);*/
-        }
-
-        function preparePolygon() {
-            var polyOptions = {
-                path: polyPoints,
-                strokeColor: polygonstyles[pcur].color,
-                strokeOpacity: polygonstyles[pcur].lineopac,
-                strokeWeight: polygonstyles[pcur].width,
-                fillColor: polygonstyles[pcur].fill,
-                fillOpacity: polygonstyles[pcur].fillopac
-            };
-            polyShape = new google.maps.Polygon(polyOptions);
-            polyShape.setMap(map);
-        }
-
-        function activateRectangle() {
-            rectangle = new google.maps.Rectangle({
-                map: map,
-                strokeColor: polygonstyles[pcur].color,
-                strokeOpacity: polygonstyles[pcur].lineopac,
-                strokeWeight: polygonstyles[pcur].width,
-                fillColor: polygonstyles[pcur].fill,
-                fillOpacity: polygonstyles[pcur].fillopac
-            });
-        }
-
-        function activateCircle() {
-            circle = new google.maps.Circle({
-                map: map,
-                fillColor: circlestyles[ccur].fill,
-                fillOpacity: circlestyles[ccur].fillopac,
-                strokeColor: circlestyles[ccur].color,
-                strokeOpacity: circlestyles[ccur].lineopac,
-                strokeWeight: circlestyles[ccur].width
-            });
-        }
     };
+    function mapzoom() {
+        var mapZoom = map.getZoom();
+        gob("myzoom").value = mapZoom;
+    }
+
+    function cursorposition(mapregion) {
+        google.maps.event.addListener(mapregion, 'mousemove', function (point) {
+            var LnglatStr6 = point.latLng.lng().toFixed(6) + ', ' + point.latLng.lat().toFixed(6);
+            var latLngStr6 = point.latLng.lat().toFixed(6) + ', ' + point.latLng.lng().toFixed(6);
+            gob('over').options[0].text = LnglatStr6;
+            gob('over').options[1].text = latLngStr6;
+        });
+    }
+
+    function createplacemarkobject() {
+        var thisplacemark = new placemarkobject();
+        placemarks.push(thisplacemark);
+    }
+
+    function createpolygonstyleobject() {
+        var polygonstyle = new polystyle();
+        polygonstyles.push(polygonstyle);
+    }
+
+    function createlinestyleobject() {
+        var polylinestyle = new linestyle();
+        polylinestyles.push(polylinestyle);
+    }
+
+    function createcirclestyleobject() {
+        var cirstyle = new circstyle();
+        circlestyles.push(cirstyle);
+    }
+
+    function createmarkerstyleobject() {
+        var thisstyle = new markerstyleobject();
+        markerstyles.push(thisstyle);
+    }
+
+    function preparePolyline() {
+        var polyOptions = {
+            path: polyPoints,
+            strokeColor: polylinestyles[lcur].color,
+            strokeOpacity: polylinestyles[lcur].lineopac,
+            strokeWeight: polylinestyles[lcur].width
+        };
+        polyShape = new google.maps.Polyline(polyOptions);
+        polyShape.setMap(map);
+        /*var tmpPolyOptions = {
+     strokeColor: polylinestyles[lcur].color,
+     strokeOpacity: polylinestyles[lcur].lineopac,
+     strokeWeight: polylinestyles[lcur].width
+     };
+     tmpPolyLine = new google.maps.Polyline(tmpPolyOptions);
+     tmpPolyLine.setMap(map);*/
+    }
+
+    function preparePolygon() {
+        var polyOptions = {
+            path: polyPoints,
+            strokeColor: polygonstyles[pcur].color,
+            strokeOpacity: polygonstyles[pcur].lineopac,
+            strokeWeight: polygonstyles[pcur].width,
+            fillColor: polygonstyles[pcur].fill,
+            fillOpacity: polygonstyles[pcur].fillopac
+        };
+        polyShape = new google.maps.Polygon(polyOptions);
+        polyShape.setMap(map);
+    }
+
+    function activateRectangle() {
+        rectangle = new google.maps.Rectangle({
+            map: map,
+            strokeColor: polygonstyles[pcur].color,
+            strokeOpacity: polygonstyles[pcur].lineopac,
+            strokeWeight: polygonstyles[pcur].width,
+            fillColor: polygonstyles[pcur].fill,
+            fillOpacity: polygonstyles[pcur].fillopac
+        });
+    }
+
+    function activateCircle() {
+        circle = new google.maps.Circle({
+            map: map,
+            fillColor: circlestyles[ccur].fill,
+            fillOpacity: circlestyles[ccur].fillopac,
+            strokeColor: circlestyles[ccur].color,
+            strokeOpacity: circlestyles[ccur].lineopac,
+            strokeWeight: circlestyles[ccur].width
+        });
+    }
+
 }

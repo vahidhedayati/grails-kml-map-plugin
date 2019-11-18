@@ -19,7 +19,7 @@ A plugin to read raw kml file in - load google maps and overlay kml boundaries o
 
 #### How to install:  Dependency Grails 3 (build.gradle):
  ```
- compile "org.grails.plugins.kml:kml:0.2"
+ compile "org.grails.plugins:kml:0.3"
 ```
 
 > #### [Demo project (grails 3.3.8)](https://github.com/vahidhedayati/grailskml-test)
@@ -52,9 +52,7 @@ kmlplugin{
     // If you don't have API feature enabled on key disable this you get a developer map instead
     MAP_HAS_API_ENABLED=false
 
-    //Physical location of geoLitCity file  - create and ensure web user has access
-    geoMap="/opt/kmlplugin/_map/GeoLite2-City.mmdb"
-
+  
     //2 char country code of where your _default.kml belongs to so we can look up area names
     KML_COUNTRY='UK'
 
@@ -96,14 +94,9 @@ It provides raw kml extracted file, has feature to upload, hasn't been tested.
 Instructions / Notes 
 ----------
 Under:
-1.  `/opt/kmlplugin/_map/` -> https://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
-Override `config.kmplugin.geoMap` or put file into
-Place this under `/opt/kmlplugin/_map/GeoLiteCity.dat`
 
 
-
-
-2. `/opt/kmlplugin/_map/KML/` ->
+1. `/opt/kmlplugin/_map/KML/` ->
 
 Place a file for the given country. This will be KML file you get hold of that contains typically all the official boroughs/councils of a given country in the case of UK we found:
 

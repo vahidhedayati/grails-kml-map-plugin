@@ -10,6 +10,8 @@ import org.grails.plugins.kml.utils.beans.KmlAddress
 
 class MapController {
 
+    def areaService
+
     def loadOverlay(KmlAddress a) {
         //builds up only user on the map
 
@@ -38,6 +40,7 @@ class MapController {
 
         render view:'index', model:[currentEntry:currentEntry, instance:bean]
     }
+
     def upload() {
 
     }
@@ -117,7 +120,7 @@ class MapController {
     def addGeo(AreaBoundaryBean bean) {
         bean.formatBean()
         if (bean.foundArea) {
-            institutionService.updateGeo(bean.foundArea.id,bean.coords[0].longitude,bean.coords[0].latitude)
+            areaService.updateGeo(bean.foundArea.id,bean.coords[0].longitude,bean.coords[0].latitude)
         }
         render status:response.SC_OK
     }

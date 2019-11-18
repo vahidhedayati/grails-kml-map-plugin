@@ -72,7 +72,7 @@ class GeoHelper {
             return geometry
         } catch (Throwable e) {
             log.error "${e.message}",e
-            //println e.toString()
+
         }
     }
 
@@ -127,12 +127,10 @@ class GeoHelper {
 
     static Map decodeLatLong(Double lat, Double lng,String postcode, boolean withKey=true) {
         def http = new HTTPBuilder('https://maps.googleapis.com/maps/api/geocode/')
-        def lookup = [latlng:"$lat,$lng".toString(), sensor: false]
-        //if (withKey) {
-            lookup.key=API_KEY
-        //}
+        def lookup = [latlng:"$lat,$lng".toString(), sensor: false, key:API_KEY]
 
-        //println " $lookup"
+
+
         def resp = http.get(
                 path: 'json',
                 query: lookup

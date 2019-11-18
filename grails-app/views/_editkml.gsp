@@ -163,7 +163,7 @@ body {
     }
     function stopediting(){
         editing = false;
-        gob('EditButton').value = 'Edit lines';
+        gob('editButton').value = 'Edit lines';
         for(var i = 0; i < markers.length; i++) {
             markers[i].setMap(null);
         }
@@ -193,7 +193,7 @@ body {
                 //polyPoints.removeAt(polyPoints.length-1);
                 drawandlog();
                 editing = true;
-                gob('EditButton').value = 'Stop edit';
+                gob('editButton').value = 'Stop edit';
             }
         }
     }
@@ -488,7 +488,7 @@ body {
         <td>
             <form action="#">
                 <input type="button" onclick="copyTextarea();" value="Select and copy text"/>
-                <input type="button" onclick="editlines();" value="Edit lines" id="EditButton"/><br />
+                <input type="button" onclick="editlines();" value="Edit lines" id="editButton"/><br />
                 <input type="button" onclick="regret();" value="Regret deleted point" id="RegretButton"/>
                 Zoom level:<input type="text" size="5" name="myzoom" id="myzoom" value="" style="width:15px; border: 1px solid #000000;" />
             </form>

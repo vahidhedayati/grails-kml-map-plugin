@@ -13,6 +13,14 @@ class AreaService implements GrailsApplicationAware {
     def config
 
     @Transactional
+    def updateGeo(Long foundCommunityId,Double longitude,Double latitude){
+        Areas area = Areas.get(foundCommunityId)
+        area.latitude=latitude
+        area.longitude=longitude
+        area.save(flush: true)
+    }
+
+    @Transactional
     def addArea(String countryCode, String area) {
         if (!Areas.findByName(area)) {
             def results = GeoHelper.resolveCommunity(countryCode, area)
