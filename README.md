@@ -24,7 +24,10 @@ A plugin to read raw kml file in - load google maps and overlay kml boundaries o
 
 > #### [Demo project (grails 3.3.8)](https://github.com/vahidhedayati/grailskml-test)
  
-> ### YouTube videos  
+> ### YouTube videos:
+>
+  [Boxset - play all 3 as a playlist](https://www.youtube.com/watch?v=m4ecgmGn4UA&list=PLfZr1vB6p8XLgSCO-JuROPjozcotad1Pt)
+  
   [Part 1 Walk through urls and simple usage of plugin - very basic](https://youtu.be/m4ecgmGn4UA)
   
   [Part 2 Walk through of how to build on new grails project from scratch](https://youtu.be/PA_O4xLGEkc)
