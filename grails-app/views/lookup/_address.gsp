@@ -225,9 +225,9 @@
                     $("#resizable").resizable();
                     $('#longitude').val( data.lng);
                     $('#latitude').val( data.lat);
-                    if (data.comunityName) {
+                    //if (data.comunityName) {
                         $('#communitySearch').val( data.comunityName);
-                    }
+                    //}
                 },
                 error: function (xhr, textStatus, error) {
                     $('#street').val('');
