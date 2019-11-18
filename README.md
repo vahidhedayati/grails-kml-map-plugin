@@ -144,3 +144,13 @@ Once it has been generated. The site will from there on refer to all created fil
 This means you can now edit each of the generated files for a given community and re-save it – a saved version and application restart will then ensure the site is using whatever latest content each community has.
 
 Upon start up you will need to visit the  map regions and it will show what has been produced.
+
+
+## To enable logging: 
+Add below to `grails-app/conf/logback.groovy`
+```
+    logger('org.grails.plugins.kml', ERROR, ['STDOUT'], false)
+    logger('org.grails.plugins.kml', DEBUG, ['STDOUT'], false)
+    logger('org.grails.plugins.kml', WARN, ['STDOUT'], false)
+    logger('org.grails.plugins.kml', INFO, ['STDOUT'], false)
+```
