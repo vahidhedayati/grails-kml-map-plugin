@@ -19,7 +19,7 @@ A plugin to read raw kml file in - load google maps and overlay kml boundaries o
 
 #### How to install:  Dependency Grails 3 (build.gradle):
  ```
- compile "org.grails.plugins:kml:0.3"
+ compile "org.grails.plugins:kml:0.4"
 ```
 
 > #### [Demo project (grails 3.3.8)](https://github.com/vahidhedayati/grailskml-test)
@@ -52,6 +52,9 @@ kmlplugin{
     //This defines to enable map
     ENABLE_MAP_LOOKUP=true
 
+    //By default treated as false
+    DISABLE_LAT_LNG_LOOKUP=false
+
     // If you don't have API feature enabled on key disable this you get a developer map instead
     MAP_HAS_API_ENABLED=false
 
@@ -75,7 +78,7 @@ kmlplugin{
 
 #### Upon Start Available urls:
 
-##### 1. Lookup service : http://localhost:8080/lookup
+## 1. Lookup service : http://localhost:8080/lookup
 
 This provides a page that given country / postcode will attempt to:
  >1.1: Lookup postcode and return as much of address as possible 
@@ -84,20 +87,82 @@ This provides a page that given country / postcode will attempt to:
     Will load map, put postcode on map 
     & if KML boundaries loaded and matches will load in the area overlay on the map.
     
-    There is also a taglib call `<map:lookup/>` I havent really messed around with this
+ > 1.3 To disable features you can add any or all these to url line:
+-    http://localhost:8080/lookup/index?showState=false&showArea=false&showLatLong=false&streetRequired=false
+
+Other examples:
+ -   http://localhost:8080/lookup/index?showState=false&showArea=true&showLatLong=true&streetRequired=false&countrysearch=United%20Kingdom&countryCode=UK&postcode=SE1%201AP
+ 
+ -   http://localhost:8080/lookup/index?countrysearch=United%20Kingdom&countryCode=UK&postcode=SE1%201AP
+ 
+ -   http://localhost:8080/lookup/index?countrysearch=United%20Kingdom&countryCode=UK&postcode=SE1%201AP&longitude=-0.09326659999999999&latitude=51.5017828
+ 
+ -   http://localhost:8080/lookup/index?countrysearch=United%20Kingdom&countryCode=UK&postcode=SE1%201AP&longitude=-0.09326659999999999&latitude=51.5017828&communitySearch=Southwark
+ 
+## 2. TagLib call
+All passed variables to map and instance are not required but to show what above url params can be either posted or done as per above with instance being addition to params above
+for tag lib if you already have data this is what it is expecting to be sent to it
+
+```gsp
+<map:lookup 
+   showState="${false}"   
+   showArea="${false}" 
+   showLatLong="${false}" 
+   streetRequired="${false}"
+   instance="${[
+        countrysearch:'',
+        countryCode:'',
+        postcode:'',
+        building:'',
+        street:'',
+        city:'',
+        state:'',
+        communitySearch:'',
+        latitude:'',
+        longitude:'',
+    ]}"
+  />
+<!-- similar example with some data already set all of below
+ is enough to trigger maps / overlay - could be saved data -->
+<map:lookup
+    showState="${false}"
+    showArea="${false}"
+    showLatLong="${false}"
+    streetRequired="${false}"
+    instance="${[
+        countrysearch:'United Kingdom',
+        countryCode:'UK',
+        postcode:'SE1 1AP',
+        building:'',
+        street:'',
+        city:'',
+        state:'',
+        communitySearch:'Southwark',
+        latitude:'51.5017828',
+        longitude:'-0.09326659999999999',
+    ]}"
+/>
+```
+
     
-##### Map overlay editor :  http://localhost:8080/map
+## Map overlay editor :  http://localhost:8080/map
 
 This provides an interface to edit and modify existing kml boundaries on the fly. 
 It provides raw kml extracted file, has feature to upload, hasn't been tested.
 
 
-
-
 Instructions / Notes 
 ----------
-Under:
 
+#### Customising your own lookup
+
+You will need to take a copy of [_address.gsp](https://github.com/vahidhedayati/grails-kml-map-plugin/blob/master/grails-app/views/lookup/_address.gsp) when `verifyCode`  is called the `data` object returned contains full dump of 
+everything useful .  
+
+`console.log(JSON.stringify(data))` will show all but 2 full data sets: `data.latLongDetails` and `data.fullPostCodeDetails`
+
+
+#### KML Notes :
 
 1. `/opt/kmlplugin/_map/KML/` ->
 
@@ -169,6 +234,3 @@ This is really work over years, it initially resolve geo locations and city. Wor
 addresses resolved from postcode. After much delving/reading stuff. I found UK has very restricted information 
 around postcodes & boundaries certain legalities etc. 
 But by doing 2 different lookups via google can provide a lot of the missing information.
-
-
- 

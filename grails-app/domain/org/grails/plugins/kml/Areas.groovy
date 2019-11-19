@@ -3,6 +3,7 @@ package org.grails.plugins.kml
 class Areas {
     String name
 
+    String countryCode
     BigDecimal neLongitude
     BigDecimal neLatitude
     BigDecimal swLongitude
@@ -23,4 +24,7 @@ class Areas {
     }
 
      */
+    static List<String> getCountries() {
+        return Areas.executeQuery("select distinct f.countryCode from Areas f")
+    }
 }

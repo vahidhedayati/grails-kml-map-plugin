@@ -10,6 +10,15 @@ import org.apache.commons.io.IOUtils
 import org.apache.commons.io.LineIterator
 import org.springframework.web.multipart.MultipartFile
 
+
+/**
+ *  KmlHelper : notes
+ *      1. The kml data  is currently read and loaded into  memory - the more files the more mem consumption
+ *      2. The parsing process seems to work for this file I have provided but not for official gov site versions
+ *      & needs work - if anyone wishes to help feel free to fork and send PR Request
+ *
+ *  @author Vahid hedayati
+ */
 @Slf4j
 class KmlHelper {
 

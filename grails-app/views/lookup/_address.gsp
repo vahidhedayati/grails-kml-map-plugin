@@ -1,9 +1,9 @@
+<asset:stylesheet href="jquery-ui.min.css" />
+<asset:javascript src="jquery-ui.min.js" />
 <asset:javascript src="addressMap.js" />
-
 <div class="col-sm-7" style="height:40em !important">
     <div class="row">
         <div id="log"></div>
-
         <div class="col-xs-4">
             <div class='form-group'>
                 <label for="countrysearch"  class="maxWidth control-label">
@@ -16,10 +16,8 @@
                 <g:hiddenField
                         value="${instance?.countryCode}"
                         name="countryCode"/>
-
             </div>
         </div>
-
         <div class="col-xs-4">
             <div class='form-group'>
                 <span id="postcodeContainer" >
@@ -27,7 +25,6 @@
                         <g:message code="postcode.label"/>
                     </label>
                     <g:field type="text"  class="form-control "
-
                              value="${instance?.postcode ?: ''}"
                              required="true"
                              name="postcode" />
@@ -35,19 +32,15 @@
                 <span id="postcodeError"></span>
             </div>
         </div>
-
-
     </div>
     <div class="row">
-
         <div class="col-sm-4">
             <div class='form-group'>
                 <span class=" ${hasErrors(bean: instance, field: 'building', 'has-error')}">
                     <label for="building" ><g:message code="building.label"/></label>
                     <g:field name="building" class="form-control" id="building"
                              maxlength="100"
-                             value="${instance?.building?:''}"  type="text"
-                    />
+                             value="${instance?.building?:''}"  type="text"/>
                 </span>
             </div>
         </div>
@@ -55,17 +48,20 @@
             <div class='form-group'>
                 <span class=" ${hasErrors(bean: instance, field: 'street', 'has-error')}">
                     <label for="street" ><g:message code="street.label"/></label>
-                    <g:field name="street" id="street" class="form-control "
-                             maxlength="100"  required="true"
-                             value="${instance?.street?:''}"  type="text"
-                    />
+                    <g:if test="${streetRequired}">
+                        <g:field name="street" id="street" class="form-control " maxlength="100"  required="true"
+                                 value="${instance?.street?:''}"  type="text"/>
+                    </g:if>
+                    <g:else>
+                        <g:field name="street" id="street" class="form-control " maxlength="100"
+                                 value="${instance?.street?:''}"  type="text"/>
+                    </g:else>
+
                 </span>
             </div>
         </div>
     </div>
     <div class="row">
-
-
         <div class="col-xs-4">
             <div class='form-group'>
                 <span id="cityContent">
@@ -85,73 +81,89 @@
                 </span>
             </div>
         </div>
-        <div class="col-xs-4">
-            <div class='form-group'>
-                <label for="state">
-                    <div class="maxWidth">
-                        <g:message code="state.label"/>
-                    </div>
-                </label>
-                <g:field type="text"
-                         value="${instance?.state ?: ''}"
-                         id="state"
-                         class="form-control" name="state" />
+        <g:if test="${showState}">
+            <div class="col-xs-4">
+                <div class='form-group'>
+                    <label for="state">
+                        <div class="maxWidth">
+                            <g:message code="state.label"/>
+                        </div>
+                    </label>
+                    <g:field type="text"
+                             value="${instance?.state ?: ''}"
+                             id="state"
+                             class="form-control" name="state" />
 
+                </div>
             </div>
-        </div>
-        <div class="col-xs-4">
-            <div class='form-group'>
-                <label for="communitySearch"  class="maxWidth control-label">
-                    <g:message code="communitySearch.label"/>
-                </label>
-                <g:field type="text"  class="form-control "
-                         value="${instance?.communitySearch ?: ''}"
-                         name="communitySearch" />
+        </g:if>
+        <g:if test="${showArea}">
+            <div class="col-xs-4">
+                <div class='form-group'>
+                    <label for="communitySearch"  class="maxWidth control-label">
+                        <g:message code="communitySearch.label"/>
+                    </label>
+                    <g:field type="text"  class="form-control "
+                             value="${instance?.communitySearch ?: ''}"
+                             name="communitySearch" />
 
+                </div>
             </div>
-        </div>
+        </g:if>
+        <g:if test="${showLatLong}">
+            <div class="col-xs-4">
+                <div class='form-group'>
+                    <label for="latitude"  class="maxWidth control-label">
+                        <g:message code="latitude.label"/>
+                    </label>
+                    <g:field type="text"  class="form-control "
+                             value="${instance?.latitude ?: ''}"
+                             name="latitude" />
 
-        <div class="col-xs-4">
-            <div class='form-group'>
-                <label for="latitude"  class="maxWidth control-label">
-                    <g:message code="latitude.label"/>
-                </label>
-                <g:field type="text"  class="form-control "
-                         value="${instance?.latitude ?: ''}"
-                         name="latitude" />
-
+                </div>
             </div>
-        </div>
 
-        <div class="col-xs-4">
-            <div class='form-group'>
-                <label for="longitude"  class="maxWidth control-label">
-                    <g:message code="longitude.label"/>
-                </label>
-                <g:field type="text"  class="form-control "
-                         value="${instance?.longitude ?: ''}"
-                         name="longitude" />
+            <div class="col-xs-4">
+                <div class='form-group'>
+                    <label for="longitude"  class="maxWidth control-label">
+                        <g:message code="longitude.label"/>
+                    </label>
+                    <g:field type="text"  class="form-control "
+                             value="${instance?.longitude ?: ''}"
+                             name="longitude" />
 
+                </div>
             </div>
-        </div>
+        </g:if>
     </div>
 </div>
-
-<g:if test="${grailsApplication.config.kmlplugin.ENABLE_MAP_LOOKUP && Boolean.valueOf(grailsApplication.config.kmlplugin.ENABLE_MAP_LOOKUP)==true}">
+<g:if test="${grailsApplication.config.kmlplugin.ENABLE_MAP_LOOKUP && Boolean.valueOf(grailsApplication.config.kmlplugin.ENABLE_MAP_LOOKUP)}">
     <div class="col-sm-4" id="resizable2" style="height:40em; margin-top:0;">
         <div id="map" style="width: 100%; height: 100%;" ></div>
         <g:render template="/googleMaps"/>
     </div>
 </g:if>
-
-
 </div>
-
 <script>
 
     var AddressMap = new AddressMap();
     $(function() {
-
+        <g:if test="${instance?.countryCode && instance?.postcode && !instance.latitude}">
+        console.log('verify')
+        verifyCode('${instance?.postcode}','${instance?.countryCode}')
+        </g:if>
+        <g:if test="${instance?.countryCode && instance?.postcode && instance.latitude &&
+        instance.longitude &&grailsApplication.config.kmlplugin.ENABLE_MAP_LOOKUP &&
+        Boolean.valueOf(grailsApplication.config.kmlplugin.ENABLE_MAP_LOOKUP)}">
+        console.log('other thing')
+        AddressMap.setMarker("${asset.assetPath(src:'/map/marker_20_red.png')}")
+        AddressMap.initialize_gmap('${instance.longitude}','${instance.latitude}');
+        <g:if test="${instance?.communitySearch}">
+        AddressMap.loadCommunityMap("${g.createLink(controller:'map', action:'loadCommunityMap')}/?name=${instance?.communitySearch}");
+        </g:if>
+        setTimeout(function(){  AddressMap.loadMap("${g.createLink(controller:'map', action:'loadOverlay')}/?street=" + $('#street').val() + "&city=" + $('#city').val() + "&postcode=" + $('#postcode').val() + "&longitude=" + $('#longitude').val() + "&latitude=" + $('#latitude').val());},3000);
+        $("#resizable").resizable();
+        </g:if>
         function updateAddress(addressType,building,street,cityName,countryName,countryCode,postcode,state) {
             $('#building').val(building);
             $('#postcode').val(postcode);
@@ -213,20 +225,23 @@
                     if (data.state){
                         $('#state').val(data.state);
                     }
-                    <g:if test="${grailsApplication.config.kmlplugin.ENABLE_MAP_LOOKUP && Boolean.valueOf(grailsApplication.config.kmlplugin.ENABLE_MAP_LOOKUP)==true}">
+                    $('#longitude').val( data.lng);
+                    $('#latitude').val( data.lat);
+
+                    <g:if test="${grailsApplication.config.kmlplugin.ENABLE_MAP_LOOKUP && Boolean.valueOf(grailsApplication.config.kmlplugin.ENABLE_MAP_LOOKUP)}">
                     AddressMap.setMarker("${asset.assetPath(src:'/map/marker_20_red.png')}")
                     AddressMap.initialize_gmap(data.lng,data.lat);
                     if (data.comunityName) {
                         AddressMap.loadCommunityMap("${g.createLink(controller:'map', action:'loadCommunityMap')}/?name="+data.comunityName);
                     }
                     setTimeout(function(){  AddressMap.loadMap("${g.createLink(controller:'map', action:'loadOverlay')}/?street=" + $('#street').val() + "&city=" + $('#city').val() + "&postcode=" + $('#postcode').val() + "&longitude=" + $('#longitude').val() + "&latitude=" + $('#latitude').val());},3000);
+                    $("#resizable").resizable();
                     </g:if>
 
-                    $("#resizable").resizable();
-                    $('#longitude').val( data.lng);
-                    $('#latitude').val( data.lat);
+
+
                     //if (data.comunityName) {
-                        $('#communitySearch').val( data.comunityName);
+                    $('#communitySearch').val( data.comunityName);
                     //}
                 },
                 error: function (xhr, textStatus, error) {

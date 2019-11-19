@@ -324,6 +324,7 @@ class GeoHelper {
                                 result.county = names[2]
                                 result.state = names[3]
                             }
+                            result.fullPostCodeDetails=names
                             if (result.lat && result.lng) {
                                 log.info "Google latlong service: ${resp.status}  ${code} found withKey=${withKey}"
                             } else {

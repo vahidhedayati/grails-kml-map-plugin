@@ -25,9 +25,10 @@ class AreaService implements GrailsApplicationAware {
         if (!Areas.findByName(area)) {
             def results = GeoHelper.resolveCommunity(countryCode, area)
             if (results) {
-                log.info("Adding ${area}  to DB")
+                log.info("Adding ${area}  to Areas")
                 Areas community = new Areas()
                 community.name = area
+                community.countryCode=countryCode
                 community.latitude = results?.latitude
                 community.longitude = results?.longitude
                 community.neLatitude = results?.nelat
@@ -35,6 +36,14 @@ class AreaService implements GrailsApplicationAware {
                 community.swLatitude = results?.swlat
                 community.swLongitude = results?.swlng
                 community.save()
+
+                if (!SupportedCountries.findByCountryCode(countryCode)) {
+                    log.info("Adding ${countryCode} to SupportedCountries")
+                    SupportedCountries sp = new SupportedCountries()
+                    sp.countryCode=countryCode
+                    sp.save()
+                }
+
 
             }
         }

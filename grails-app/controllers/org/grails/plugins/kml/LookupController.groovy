@@ -10,7 +10,14 @@ class LookupController {
     def lookupService
 
     def index() {
-        render view:'/lookup/index'
+
+        Map model=[:]
+        model.instance=params
+        model.showState=Boolean.valueOf(params?.showState?:true)
+        model.streetRequired=Boolean.valueOf(params?.streetRequired?:true)
+        model.showLatLong=Boolean.valueOf(params?.showLatLong?:true)
+        model.showArea=Boolean.valueOf(params?.showArea?:true)
+        render view:'/lookup/index', model:model
     }
 
     def postcodeDetails() {
@@ -18,7 +25,7 @@ class LookupController {
             render lookupService.postcodeDetails(params.countryCode,params.code) as JSON
             return
         }
-        render status: response.SC_NOT_FOUND
+        render text:'failed', status: response.SC_NOT_FOUND
     }
 
     def searchCountry() {

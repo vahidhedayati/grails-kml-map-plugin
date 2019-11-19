@@ -12,6 +12,16 @@ def areaService
     }
 
     def lookup={ attrs->
-        out << g.render(template:'/lookup/address', model:[instance:attrs?.instance?:[:]])
+        Map model=[:]
+        if (attrs?.instance) {
+            model.instance=attrs.instance
+        } else {
+            model.instance=attrs
+        }
+        model.showState=Boolean.valueOf(attrs?.showState?:true)
+        model.streetRequired=Boolean.valueOf(attrs?.streetRequired?:true)
+        model.showLatLong=Boolean.valueOf(attrs?.showLatLong?:true)
+        model.showArea=Boolean.valueOf(attrs?.showArea?:true)
+        out << g.render(template:'/lookup/address', model:model?:[:])
     }
 }
