@@ -157,3 +157,18 @@ Add below to `grails-app/conf/logback.groovy`
     logger('org.grails.plugins.kml', WARN, ['STDOUT'], false)
     logger('org.grails.plugins.kml', INFO, ['STDOUT'], false)
 ```
+
+
+##Credits
+#### `/map` [KML Editor taken from Kjell Scharning](http://www.birdtheme.org/useful/editkmlfilev3.php)
+KML Map editor or `/map` segement is thanks to above link which gave the source to build the rest as such.
+His worked got wired into what the rest of the code does, as per what his page expected.  
+
+#### `/lookup` my own work over years.
+This is really work over years, it initially resolve geo locations and city. Worked on another project that needed
+addresses resolved from postcode. After much delving/reading stuff. I found UK has very restricted information 
+around postcodes & boundaries certain legalities etc. 
+But by doing 2 different lookups via google can provide a lot of the missing information.
+
+
+ 
