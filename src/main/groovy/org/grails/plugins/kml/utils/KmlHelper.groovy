@@ -58,6 +58,7 @@ class KmlHelper {
      */
     public static void parseKml() {
         //configuration override to run the default kml file
+        Holders.grailsApplication.mainContext.areaService.addCountry(COUNTRY_CODE)
 
         if (KML_RESET_FROM_DEFAULT) {
             InputStream is = new FileInputStream(ROOT_PATH+DEFAULT_KML)

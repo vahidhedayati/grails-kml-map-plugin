@@ -36,18 +36,18 @@ class AreaService implements GrailsApplicationAware {
                 community.swLatitude = results?.swlat
                 community.swLongitude = results?.swlng
                 community.save()
-
-                if (!SupportedCountries.findByCountryCode(countryCode)) {
-                    log.info("Adding ${countryCode} to SupportedCountries")
-                    SupportedCountries sp = new SupportedCountries()
-                    sp.countryCode=countryCode
-                    sp.save()
-                }
-
-
             }
         }
+    }
 
+    @Transactional
+    def addCountry(String countryCode) {
+        if (!SupportedCountries.findByCountryCode(countryCode)) {
+            log.info("Adding ${countryCode} to SupportedCountries")
+            SupportedCountries sp = new SupportedCountries()
+            sp.countryCode=countryCode
+            sp.save()
+        }
     }
     @Transactional
     def addAreas(String countryCode, List areas) {
