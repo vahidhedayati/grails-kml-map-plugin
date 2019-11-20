@@ -18,7 +18,7 @@ class LookupService implements GrailsApplicationAware {
             result= GeoHelper.resolveCountryPostCode(countryCode, code, true)?:[:]
             if (result && result.lat && result.lng) {
                 //If config DISABLE_LAT_LNG_LOOKUP is set to true  it won't do this check
-                if (Boolean.valueOf(config?.DISABLE_LAT_LNG_LOOKUP?:false)) {
+                if (!Boolean.valueOf(config?.DISABLE_LAT_LNG_LOOKUP?:false)) {
                     def decodeLatLong = GeoHelper.decodeLatLong(Double.valueOf(result.lat as String), Double.valueOf(result.lng as String), code, true)
                     result.streetName = decodeLatLong?.streetName?:''
                     result.city = decodeLatLong?.city?:''
