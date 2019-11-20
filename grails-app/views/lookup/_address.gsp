@@ -137,7 +137,7 @@
         </g:if>
     </div>
 </div>
-<g:if test="${grailsApplication.config.kmlplugin.ENABLE_MAP_LOOKUP && Boolean.valueOf(grailsApplication.config.kmlplugin.ENABLE_MAP_LOOKUP)}">
+<g:if test="${Boolean.valueOf(grailsApplication.config.kmlplugin?.ENABLE_MAP_LOOKUP?:true)}">
     <div class="col-sm-4" id="resizable2" style="height:40em; margin-top:0;">
         <div id="map" style="width: 100%; height: 100%;" ></div>
         <g:render template="/googleMaps"/>
@@ -153,8 +153,7 @@
         verifyCode('${instance?.postcode}','${instance?.countryCode}')
         </g:if>
         <g:if test="${instance?.countryCode && instance?.postcode && instance.latitude &&
-        instance.longitude &&grailsApplication.config.kmlplugin.ENABLE_MAP_LOOKUP &&
-        Boolean.valueOf(grailsApplication.config.kmlplugin.ENABLE_MAP_LOOKUP)}">
+        instance.longitude && Boolean.valueOf(grailsApplication.config.kmlplugin?.ENABLE_MAP_LOOKUP?:true)}">
         console.log('other thing')
         AddressMap.setMarker("${asset.assetPath(src:'/map/marker_20_red.png')}")
         AddressMap.initialize_gmap('${instance.longitude}','${instance.latitude}');
@@ -228,7 +227,7 @@
                     $('#longitude').val( data.lng);
                     $('#latitude').val( data.lat);
 
-                    <g:if test="${grailsApplication.config.kmlplugin.ENABLE_MAP_LOOKUP && Boolean.valueOf(grailsApplication.config.kmlplugin.ENABLE_MAP_LOOKUP)}">
+                    <g:if test="${Boolean.valueOf(grailsApplication.config.kmlplugin?.ENABLE_MAP_LOOKUP?:true)}">
                     AddressMap.setMarker("${asset.assetPath(src:'/map/marker_20_red.png')}")
                     AddressMap.initialize_gmap(data.lng,data.lat);
                     if (data.comunityName) {

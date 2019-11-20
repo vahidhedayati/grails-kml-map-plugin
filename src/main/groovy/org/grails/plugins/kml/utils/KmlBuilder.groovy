@@ -42,7 +42,7 @@ public class KmlBuilder {
 
     public void placeAddress(KmlAddress a) {
         GeoCoordinates gmp = getCoordinates(a)
-        addPlacemarkWithLabel(gmp, ((a?.street?a.street+' ':'')+(a?.city?a.city+' ':+'')+(a?.postcode?a.postcode:'')))
+        addPlacemarkWithLabel(gmp, ((a?.street?a.street+' ':'')+(a?.city?a.city+' ':'')+(a?.postcode?a.postcode:'')))
     }
 
     private  GeoCoordinates getCoordinates(KmlAddress u) {

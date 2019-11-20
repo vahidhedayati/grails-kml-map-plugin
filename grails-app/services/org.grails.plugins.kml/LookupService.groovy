@@ -33,7 +33,7 @@ class LookupService implements GrailsApplicationAware {
                 // If config ENABLE_MAP_LOOKUP is set to false it won't do boundary check
                 // Also the country doing postcode lookup needs to be already part of the boundary information
                 // otherwise waste of resources
-                if (Boolean.valueOf(config?.ENABLE_MAP_LOOKUP?:false) && SupportedCountries.findByCountryCode(countryCode)) {
+                if (Boolean.valueOf(config?.ENABLE_MAP_LOOKUP?:true) && SupportedCountries.findByCountryCode(countryCode)) {
                     GeoMapListener.loadElements()?.each {
                         boolean found = KmlHelper.coordinate_is_inside_polygon(Double.valueOf(result.lat as String),Double.valueOf(result.lng as String),it.lati,it.longi)
                         if (found ) {
