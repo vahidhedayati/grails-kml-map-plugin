@@ -225,7 +225,7 @@ Add below to `grails-app/conf/logback.groovy`
 
 
 ##Credits
-#### `/map` [KML Editor taken from Kjell Scharning](http://www.birdtheme.org/useful/editkmlfilev3.php)
+#### `/map` [KML Editor taken from Kjell Scharning](http://www.birdtheme.org/useful/v3tool.html)
 KML Map editor or `/map` segement is thanks to above link which gave the source to build the rest as such.
 His worked got wired into what the rest of the code does, as per what his page expected.  
 
