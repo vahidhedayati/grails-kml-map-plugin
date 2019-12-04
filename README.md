@@ -230,3 +230,18 @@ KML Map editor or `/map` segement is thanks to above link which gave the source 
 His worked got wired into what the rest of the code does, as per what his page expected.  
 
 #### `/lookup` my own work over different projects / requirements.
+
+
+
+
+![sample image](https://vahidhedayati.github.io/grails-kml-map-plugin/screenshots/map-region-editor.png)
+![sample image](https://vahidhedayati.github.io/grails-kml-map-plugin/screenshots/map-region-editor-edit.png)
+![sample image](https://vahidhedayati.github.io/grails-kml-map-plugin/screenshots/map-region-editor-edit1.png)
+![sample image](https://vahidhedayati.github.io/grails-kml-map-plugin/screenshots/map-region-editor-edit2.png)
+![sample image](https://vahidhedayati.github.io/grails-kml-map-plugin/screenshots/map-region-editor-edit3.png)
+![sample image](https://vahidhedayati.github.io/grails-kml-map-plugin/screenshots/map-region-editor-edit4.png)
+![sample image](https://vahidhedayati.github.io/grails-kml-map-plugin/screenshots/map-region-editor-edit5.png)
+![sample image](https://vahidhedayati.github.io/grails-kml-map-plugin/screenshots/map-region-editor-edit6.png)
+![sample image](https://vahidhedayati.github.io/grails-kml-map-plugin/screenshots/map-region-editor-edit7.png)
+![sample image](https://vahidhedayati.github.io/grails-kml-map-plugin/screenshots/map-region-editor-edit8.png)
+![sample image](https://vahidhedayati.github.io/grails-kml-map-plugin/screenshots/map-region-editor-edit9.png)
