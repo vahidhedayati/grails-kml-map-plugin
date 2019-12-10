@@ -230,6 +230,10 @@ KML Map editor or `/map` segement is thanks to above link which gave the source 
 His worked got wired into what the rest of the code does, as per what his page expected.  
 
 #### `/lookup` my own work over different projects / requirements.
+###### Please note - [KML Parsing utiltiy](https://github.com/vahidhedayati/grails-kml-map-plugin/blob/master/src/main/groovy/org/grails/plugins/kml/utils/KmlHelper.groovy). Is something I put together and isn't by any means perfect. I had issues parsing other KML file standards and this specific version documented/provided. I got the parsing utility to work with. The parsing utility is really expansion from [this question on SO extract-coordinates-from-kml-file-in-java](https://stackoverflow.com/questions/15636303/extract-coordinates-from-kml-file-in-java/47576837#47576837). Any one who has additional time and with this being functional, happy for anyone else who wishes to come on board and improve KML Parsing or any other aspect of this plugin. I am not actually using it. It is work I made work for other place and decided to release into public realm since its I guess a bit of magic.
+
+
+
 
 
 
